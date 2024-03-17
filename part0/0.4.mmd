@@ -1,0 +1,33 @@
+sequenceDiagram
+	participant browser
+	participant server
+	
+	browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
+	activate server
+	
+	server->>browser: 302
+	Note: HTTP 302 ( URL redirect ) the server requests the browser to make a new HTTP GET request to the address defined in the Location header (https://studies.cs.helsinki.fi/exampleapp/notes)
+	
+	browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
+	activate server
+	server-->>browser: HTML document written in index.js ( server code )
+	deactivate server
+	
+	browser->>server GET https://studies.cs.helsinki.fi/exampleapp/main.css
+	activate server
+	server->>browser: css file
+	desactivate server
+	
+	browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
+	activate server
+	server-->>browser: Javascript file
+	deactivate server
+
+	Note: The browser fetch data.json from the server for the Javascript code
+
+	browser->>server GET https://studies.cs.helsinki.fi/exampleapp/data.json 
+	activate server
+	server->>browser: JSON
+	desactivate server
+	
+	Note: The browser execute the callback function that renders the notes
