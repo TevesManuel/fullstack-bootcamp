@@ -2,8 +2,16 @@ import { useState } from 'react'
 
 const Button = ({callback, text}) => {
   return (
-    <div>
       <button onClick={callback}>{text}</button>
+  );
+};
+
+const Anecdote = ({title, anecdote, votes}) => {
+  return (
+    <div>
+      <h1>{title}</h1>
+      {anecdote}
+      <p>Has {votes} votes.</p>
     </div>
   );
 };
@@ -34,13 +42,33 @@ const App = () => {
   const voteAnecdote = () => {
     setVotes(votes.concat(selected));
   };
-
+  const getMostVotedAnecdote = () => {
+    let anecdote = {number: -1, repeat: 0}
+    for(let i = 0; i < anecdotes.length; i++)
+    {
+      let repeat_index = votes.filter(e => e==i).length;
+      if (anecdote.number == -1)
+      {
+        anecdote.number = i;
+        anecdote.repeat = repeat_index;
+      }
+      else
+      {
+        if ( repeat_index > anecdote.repeat )
+        {
+          anecdote.number = i;
+          anecdote.repeat = repeat_index;
+        }
+      }
+    }
+    return anecdote.number;
+  };
   return (
     <div>
-      {anecdotes[selected]}
-      <p>Votes: {votes.filter(e => e==selected).length}</p>
+      <Anecdote title="Anecdote of the day" anecdote={anecdotes[selected]} votes={votes.filter(e => e==selected).length}/>
       <Button callback={voteAnecdote} text="Vote"/>
       <Button callback={randomAnectote} text="Next anecdote"/>
+      <Anecdote title="Anecdote with most votes" anecdote={anecdotes[getMostVotedAnecdote()]} votes={votes.filter(e => e==getMostVotedAnecdote()).length}/>
     </div>
   )
 }
