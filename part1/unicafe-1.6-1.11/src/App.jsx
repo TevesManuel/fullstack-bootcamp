@@ -9,15 +9,24 @@ const Display = ({name, content}) => {
 };
 const Button = ({callback, text}) => {
   return (
-    <div>
       <button onClick={callback}>{text}</button>
-    </div>
   );
 };
 const Statistics = ({good, neutral, bad}) => {
   let all = good + neutral + bad;
+  if ( all == 0)
+  {
+    return (
+    <div>
+      <h3>No feedback given.</h3>
+    </div>
+    );
+  }
   return (
     <div>
+      <Display name="good" content={good}/>
+      <Display name="neutral" content={neutral}/>
+      <Display name="bad" content={bad}/>
       <Display name="all" content={all}/>
       <Display name="average" content={(good-bad)/all}/>
       <Display name="positive" content={good/all*100 + "%"}/>
@@ -31,13 +40,12 @@ const App = () => {
 
   return (
     <div>
-      <Display name="good" content={good}/>
-      <Display name="neutral" content={neutral}/>
-      <Display name="bad" content={bad}/>
-      <Statistics good={good} neutral={neutral} bad={bad}/>
+      <h1>Give feedback</h1>
       <Button callback={()=>{setGood(good + 1)}} text="good"/>
       <Button callback={()=>{setNeutral(neutral + 1)}} text="neutral"/>
       <Button callback={()=>{setBad(bad + 1)}} text="bad"/>
+      <h1>Statistics</h1>
+      <Statistics good={good} neutral={neutral} bad={bad}/>
     </div>
   );
 };
