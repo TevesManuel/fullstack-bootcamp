@@ -23,11 +23,9 @@ const Content = (params) => {
   );
 };
 const Total = (params) => {
-  let sum = 0;
-  params.parts.forEach(p => sum+=p.exercises);
   return (
     <div>
-        <p>Number of exercises {sum}</p>
+        <p>Number of exercises {params.parts.reduce((acc, current) => acc+current.exercises, 0)}</p>
     </div>
   );
 }
