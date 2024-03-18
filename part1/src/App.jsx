@@ -5,18 +5,21 @@ const Header = (params) => {
     </div>
   );
 };
-const Content = (params) => {
+const Part = (params) => {
   return (
     <div>
       <p>
-        {params.part1} {params.exercises1}
+        {params.part} {params.exercise}
       </p>
-      <p>
-        {params.part2} {params.exercises2}
-      </p>
-      <p>
-        {params.part3} {params.exercises3}
-      </p>
+    </div>
+  );
+};
+const Content = (params) => {
+  return (
+    <div>
+      <Part part={params.part1} exercise={params.exercises1}/>
+      <Part part={params.part2} exercise={params.exercises2}/>
+      <Part part={params.part3} exercise={params.exercises3}/>
     </div>
   );
 };
