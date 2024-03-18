@@ -17,7 +17,8 @@ const Part = (params) => {
 const Content = (params) => {
   return (
     <div>
-      {params.parts.map(p => <Part part={p}/>)}
+      //https://reactjs.org/link/warning-keys
+      {params.parts.map(p => <Part key={self.crypto.randomUUID()} part={p}/>)}
     </div>
   );
 };
