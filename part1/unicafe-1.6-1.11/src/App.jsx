@@ -2,9 +2,10 @@ import { useState } from 'react'
 
 const StatisticLine = ({name, content}) => {
   return (
-    <div>
-      <p>{name}: {content}</p>
-    </div>
+    <tr>
+      <td>{name}</td>
+      <td>{content}</td>
+    </tr>
   );
 };
 const Button = ({callback, text}) => {
@@ -23,14 +24,21 @@ const Statistics = ({good, neutral, bad}) => {
     );
   }
   return (
-    <div>
-      <StatisticLine name="good" content={good}/>
-      <StatisticLine name="neutral" content={neutral}/>
-      <StatisticLine name="bad" content={bad}/>
-      <StatisticLine name="all" content={all}/>
-      <StatisticLine name="average" content={(good-bad)/all}/>
-      <StatisticLine name="positive" content={good/all*100 + "%"}/>
-    </div>
+    <table>
+
+      <tbody>
+        <tr>
+          <th>Name</th>
+          <th>Value</th>
+        </tr>
+        <StatisticLine name="good" content={good}/>
+        <StatisticLine name="neutral" content={neutral}/>
+        <StatisticLine name="bad" content={bad}/>
+        <StatisticLine name="all" content={all}/>
+        <StatisticLine name="average" content={(good-bad)/all}/>
+        <StatisticLine name="positive" content={good/all*100 + "%"}/>
+      </tbody>
+    </table>
   );
 }
 const App = () => {
