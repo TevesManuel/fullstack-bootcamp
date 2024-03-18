@@ -21,6 +21,7 @@ const App = () => {
   ]
 
   const [selected, setSelected] = useState(0)
+  const [votes, setVotes] = useState([])
 
   const randomAnectote = () => {
     let new_selected = selected;
@@ -30,10 +31,15 @@ const App = () => {
     }
     setSelected(new_selected);
   };
+  const voteAnecdote = () => {
+    setVotes(votes.concat(selected));
+  };
 
   return (
     <div>
       {anecdotes[selected]}
+      <p>Votes: {votes.filter(e => e==selected).length}</p>
+      <Button callback={voteAnecdote} text="Vote"/>
       <Button callback={randomAnectote} text="Next anecdote"/>
     </div>
   )
