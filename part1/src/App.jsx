@@ -17,39 +17,41 @@ const Part = (params) => {
 const Content = (params) => {
   return (
     <div>
-      <Part part={params.part1}/>
-      <Part part={params.part2}/>
-      <Part part={params.part3}/>
+      {params.parts.map(p => <Part part={p}/>)}
     </div>
   );
 };
 const Total = (params) => {
+  let sum = 0;
+  params.parts.forEach(p => sum+=p.exercises);
   return (
     <div>
-        <p>Number of exercises {params.part1.exercises + params.part2.exercises + params.part3.exercises}</p>
+        <p>Number of exercises {sum}</p>
     </div>
   );
 }
 const App = () => {
-  const course = 'Half Stack application development'
-  const part1 = {
-    name: 'Fundamentals of React',
-    exercises: 10
-  };
-  const part2 = {
-    name: 'Using props to pass data',
-    exercises: 7
-  };
-  const part3 = {
-    name: 'State of a component',
-    exercises: 14
-  };
+  const course = 'Half Stack application development';
+  const parts = [
+    {
+      name: 'Fundamentals of React',
+      exercises: 10
+    },
+    {
+      name: 'Using props to pass data',
+      exercises: 7
+    },
+    {
+      name: 'State of a component',
+      exercises: 14
+    }
+  ];
 
   return (
     <div>
       <Header course={course}/>
-      <Content part1={part1} part2={part2} part3={part3}/>
-      <Total part1={part1} part2={part2} part3={part3}/>
+      <Content parts={parts}/>
+      <Total parts={parts}/>
     </div>
   );
 };
