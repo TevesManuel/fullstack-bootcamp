@@ -5,9 +5,10 @@ const App = () => {
     { name: 'Arto Hellas' }
   ]) 
   const [newName, setNewName] = useState('')
+  const [newPhone, setNewPhone] = useState('')
 
-  const handleInputNewName = (event) => {
-    setNewName(event.target.value);
+  const handleInput = (callback) => {
+    return (event) => {callback(event.target.value)}
   };
 
   const addPhone = (event) => {
@@ -26,7 +27,8 @@ const App = () => {
       <h2>Phonebook</h2>
       <form onSubmit={addPhone}>
         <div>
-          name: <input value={newName} onChange={handleInputNewName}/>
+        name: <input value={newName} onChange={handleInputNewName(setNewName)}/>
+        phone: <input value={newPhone} onChange={handleInputNewName}/>
         </div>
         <div>
           <button type="submit">add</button>
