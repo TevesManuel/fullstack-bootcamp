@@ -1,4 +1,6 @@
-const TableOfPersons = ({persons}) => {
+import PersonData from "./PersonData"
+
+const TableOfPersons = ({persons, filter}) => {
     return (
         <table>
             <tbody>
@@ -6,7 +8,7 @@ const TableOfPersons = ({persons}) => {
                     <th>Name</th>
                     <th>Number</th>
                 </tr>
-                {persons.map(person => <tr key={person.name}><td>{person.name}</td><td>{person.phone}</td></tr>)}
+                {persons.filter(person => person.name.toUpperCase().includes(filter.toUpperCase())).map(person => <PersonData key={person.name} person={person}/>)}
             </tbody>
         </table>
     );
