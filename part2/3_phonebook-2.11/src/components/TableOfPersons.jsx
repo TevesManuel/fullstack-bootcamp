@@ -1,6 +1,7 @@
 import PersonData from "./PersonData"
 
 const TableOfPersons = ({persons, filter}) => {
+    console.log(persons);
     return (
         <table>
             <tbody>
