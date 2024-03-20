@@ -1,8 +1,10 @@
 import { useState } from 'react'
 
+import personService from './../services/Persons'
+
 const Form = ({persons, setPersons}) => {
     const [newName, setNewName] = useState('')
-    const [newPhone, setNewPhone] = useState('')
+    const [newNumber, setNewNumber] = useState('')
     
     //A function that returns a function
     const handleInput = (callback) => {
@@ -16,16 +18,18 @@ const Form = ({persons, setPersons}) => {
         alert(`${newName} is already added to phonebook.`);
         return;
       }
-      setPersons(persons.concat({name : newName, phone: newPhone}));
+      
+      personService.create({name : newName, number: newNumber}).then(updated_persons => setPersons(persons.concat(updated_persons)));
+
       setNewName('');
-      setNewPhone('');
+      setNewNumber('');
     };
 
     return (
       <form onSubmit={addPhone}>
         <div>
         name: <input value={newName} onChange={handleInput(setNewName)}/>
-        phone: <input value={newPhone} onChange={handleInput(setNewPhone)}/>
+        number: <input value={newNumber} onChange={handleInput(setNewNumber)}/>
         </div>
         <div>
           <button type="submit">add</button>

@@ -5,14 +5,14 @@ import Filter from "./components/Filter"
 
 import axios from 'axios'
 
+import personService from './services/Persons';
+
 const App = () => {
 
   const [persons, setPersons] = useState([]);
 
   const fetchPersonsFromDB = () => {
-    axios.get("http://localhost:3001/persons").then((response) => {
-      setPersons(response.data);
-    })
+    personService.getAll().then(persons => setPersons(persons));
   };
 
   useEffect(fetchPersonsFromDB, []);
