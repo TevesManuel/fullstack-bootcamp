@@ -13,13 +13,18 @@ const Form = ({persons, setPersons}) => {
   
     const addPhone = (event) => {
       event.preventDefault();
-      if( persons.filter( e => e.name == newName).length > 0 )
+
+      if(newName == '' || newNumber == '')
       {
-        alert(`${newName} is already added to phonebook.`);
+        alert("[!] You need specify a name and number.");
         return;
       }
-      
-      personService.create({name : newName, number: newNumber}).then(updated_persons => setPersons(persons.concat(updated_persons)));
+
+      let person_ref = persons.find( e => e.name == newName);
+      if( person_ref != null )
+        personService.update(person_ref.id, {...person_ref, number: newNumber}).then(new_person => setPersons(persons.map(person => person.name !== newName ? person : new_person)))
+      else      
+        personService.create({name : newName, number: newNumber}).then(new_person => setPersons(persons.concat(new_person)));
 
       setNewName('');
       setNewNumber('');

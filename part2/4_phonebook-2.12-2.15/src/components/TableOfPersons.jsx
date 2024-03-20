@@ -7,7 +7,7 @@ const TableOfPersons = ({persons, filter, setPersons}) => {
     const callback_delete = (id) => {
         return () => {
             personService.remove(id)
-                .catch(() => alert(`Phone with id ${id} is not saved in the server.`))
+                .catch(() => alert(`[!] Phone with id ${id} is not saved in the server.`))
                 .finally( () => setPersons(persons.filter(person => person.id != id)));
         }
     }
