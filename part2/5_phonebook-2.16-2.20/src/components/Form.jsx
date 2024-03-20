@@ -23,13 +23,24 @@ const Form = ({ persons, setPersons, setNotificationObject }) => {
       let person_ref = persons.find( e => e.name == newName);
       if( person_ref != null )
       {
-        personService.update(person_ref.id, {...person_ref, number: newNumber}).then(new_person => setPersons(persons.map(person => person.name !== newName ? person : new_person)))
-        setNotificationObject({
-          title: 'Phone updated successfully',
-          message: `${person_ref.name} phone number was updated successfully.`,
-          className: 'OKNotification',
-          setNotificationObject,
-        });
+        personService.update(person_ref.id, {...person_ref, number: newNumber})
+        .then(new_person => {
+          setPersons(persons.map(person => person.name !== newName ? person : new_person));
+          setNotificationObject({
+            title: 'Phone updated successfully',
+            message: `${person_ref.name} phone number was updated successfully.`,
+            className: 'OKNotification',
+            setNotificationObject,
+          });
+        })
+        .catch(() => setNotificationObject(
+          {
+              title: "Error update phone",
+              message: `${person_ref.name} phone is not saved in the db.`,
+              className: 'ErrNotification',
+              setNotificationObject
+          }
+        ));
       }
       else 
       {

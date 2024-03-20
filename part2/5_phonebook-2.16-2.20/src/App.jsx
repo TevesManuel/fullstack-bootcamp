@@ -31,7 +31,7 @@ const App = () => {
       <h2>Add a new</h2>
       <Form persons={persons} setPersons={setPersons} setNotificationObject={setNotificationObject}/>
       <h2>Numbers</h2>
-      <TableOfPersons filter={filter} persons={persons} setPersons={setPersons}/>
+      <TableOfPersons filter={filter} persons={persons} setPersons={setPersons} setNotificationObject={setNotificationObject}/>
     </div>
   )
 }
