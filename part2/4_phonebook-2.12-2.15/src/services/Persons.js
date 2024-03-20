@@ -8,7 +8,12 @@ const getAll = () => {
     return axios.get("http://localhost:3001/persons").then((response) => response.data);
 }
 
+const remove = (id) => {
+    return axios.delete(`http://localhost:3001/persons/${id}`);
+}
+
 export default {
     create,
-    getAll
+    getAll,
+    remove
 }

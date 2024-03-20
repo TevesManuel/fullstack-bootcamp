@@ -13,3 +13,6 @@ This file is for personal use and public use for anyone who reads it, it has poi
 
 -The property fields and the variable names in the object are the same
     const person = { name: name, age: age } === const person = { name, age }
+
+-Inverted commas ( ` ` )
+    ` = ALT+96 [ASCII]
