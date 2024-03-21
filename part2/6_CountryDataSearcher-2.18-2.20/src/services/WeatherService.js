@@ -1,4 +1,4 @@
-const APIKEY="5b25335a4390ff4c6876f2cd0a9b6644"
+const APIKEY="NULL"
 const OPENWEATHER_URL      = 'https://api.openweathermap.org/data/2.5/weather?units=metric&lat={lat}&lon={lon}&appid={APIKEY}'
 const OPENWEATHER_ICON_URL = 'https://openweathermap.org/img/wn/{icon}@2x.png'
 
