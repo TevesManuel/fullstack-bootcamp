@@ -2,7 +2,6 @@ const ListOfCountries = ({filteredCountriesNames, setFilter}) => {
 
     const callbackShowGenerator = (countryName) => {
         return () => {
-            console.log(countryName)
             setFilter(countryName.countryName);
         }
     };

@@ -1,3 +1,5 @@
+import WeatherDisplay from "./WeatherDisplay";
+
 const SpecificCountry = ({countryData}) => {
     return (
         <div>
@@ -9,6 +11,7 @@ const SpecificCountry = ({countryData}) => {
                 {Object.values(countryData.languages).map((lan, i) => <li key={i}><p>{lan}</p></li>)}
             </ul>
             <img src={countryData.flags.png}></img>
+            <WeatherDisplay countryData={countryData}/>
         </div>
     );
 };
