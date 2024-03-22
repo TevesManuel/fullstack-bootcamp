@@ -1,6 +1,9 @@
-const APIKEY               = import.meta.env.WEATHERAPIKEY
+const APIKEY               = import.meta.env.VITE_REACT_WHEATER_APP_API_KEY;
+
 const OPENWEATHER_URL      = 'https://api.openweathermap.org/data/2.5/weather?units=metric&lat={lat}&lon={lon}&appid={APIKEY}'
 const OPENWEATHER_ICON_URL = 'https://openweathermap.org/img/wn/{icon}@2x.png'
+
+console.log(APIKEY);
 
 import axios from 'axios';
 
