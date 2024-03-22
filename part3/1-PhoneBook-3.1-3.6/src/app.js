@@ -26,6 +26,10 @@ let persons = [
     }
 ]
 
+app.get('/info', (request, response) => {
+    response.send(`<p>Phonebook has info for ${persons.length} people</p><p>${new Date()}</p>`);
+});
+
 app.get('/api/persons', (request, response) => {
     response.json(persons);
 });
@@ -34,8 +38,12 @@ app.get('/api/persons/:id', (request, response) => {
     response.json(persons.find(person => person.id == request.params.id));
 });
 
-app.get('/info', (request, response) => {
-    response.send(`<p>Phonebook has info for ${persons.length} people</p><p>${new Date()}</p>`);
+app.delete('/api/persons/:id', (request, response) => {
+    console.log(`New petition for DELETE ${request.params.id} ID person.`);
+    console.log(persons.length);
+    persons = persons.filter(person => person.id != request.params.id);
+    console.log(persons.length);
+    response.status(204).end();
 });
 
 app.listen(PORT, () => {
