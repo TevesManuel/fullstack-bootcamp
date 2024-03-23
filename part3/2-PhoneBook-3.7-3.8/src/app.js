@@ -28,7 +28,20 @@ let persons = [
     }
 ]
 
-app.use(morgan(':method :url :status :res[content-length] - :response-time ms'));
+app.use(express.json());
+
+app.use(morgan(function (tokens, req, res) {
+  console.log(req.body);
+  return [
+    tokens.method(req, res),
+    tokens.url(req, res),
+    tokens.status(req, res),
+    tokens.res(req, res, 'content-length'), '-',
+    tokens['response-time'](req, res), 'ms ',
+    req.body,morgan.token('body', function (req, res) { return req.body }),
+  ];
+}));
+
 
 app.get('/info', (request, response) => {
     response.send(`<p>Phonebook has info for ${persons.length} people</p><p>${new Date()}</p>`);
