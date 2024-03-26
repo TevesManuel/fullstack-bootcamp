@@ -95,6 +95,14 @@ app.post('/api/persons/', (request, response) => {
     }
 });
 
+app.put('/api/persons/:id', (request, response) => {
+  let updated_person = request.body;
+  persons = persons.map(person => person.id == request.params.id ? updated_person : person);
+  response.json(updated_person);
+  response.status(200);
+  response.end();
+});
+
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
