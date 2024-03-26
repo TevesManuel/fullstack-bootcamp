@@ -11,11 +11,11 @@ const getAll = () => {
 }
 
 const remove = (id) => {
-    return axios.delete(`${SERVER_URL}${id}`);
+    return axios.delete(`${SERVER_URL}/${id}`);
 }
 
 const update = (id, newPersonObject) => {
-    return axios.put(`${SERVER_URL}${id}`, newPersonObject).then(response => response.data);
+    return axios.put(`${SERVER_URL}/${id}`, newPersonObject).then(response => response.data);
 }
 
 export default {

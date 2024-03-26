@@ -14,5 +14,20 @@ This file is for personal use and public use for anyone who reads it, it has poi
 -The property fields and the variable names in the object are the same
     const person = { name: name, age: age } === const person = { name, age }
 
--Inverted commas ( ` ` )
+-Inverted commas ( ` )
     ` = ALT+96 [ASCII]
+
+-Proxy Vite for develop Front & Back
+    Add to vite.config.js:
+    
+        export default defineConfig({
+        plugins: [react()],
+        server: {
+            proxy: {
+            ' {URLTOACCESS} ': {
+                target: ' {URLTOREDIRECT} ',
+                changeOrigin: true,
+            },
+            }
+        },
+        })

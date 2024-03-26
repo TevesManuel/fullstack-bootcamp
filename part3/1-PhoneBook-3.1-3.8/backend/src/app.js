@@ -1,8 +1,6 @@
 const express = require('express');
 const app = express()
 
-const crypto = require('crypto');
-
 const morgan = require('morgan');
 
 const PORT = 3000;
@@ -65,8 +63,6 @@ app.delete('/api/persons/:id', (request, response) => {
 });
 
 app.post('/api/persons/', (request, response) => {
-    // console.log(`ID: ${crypto.randomUUID()}`);
-    // console.log(`Is defined name ${request.body.name}, number ${request.body.number}`);
     if(request.body.name == null)
     {
       response.send("You need specify name field");
@@ -87,12 +83,14 @@ app.post('/api/persons/', (request, response) => {
     }
     else
     {
-      persons = persons.concat({
+      let new_person = {
         name: request.body.name,
         number: request.body.number,
         id: Math.ceil(Math.random()*1000),
-      });
+      };
+      persons = persons.concat(new_person);
       response.status(200);
+      response.json(new_person);
       response.end();  
     }
 });
