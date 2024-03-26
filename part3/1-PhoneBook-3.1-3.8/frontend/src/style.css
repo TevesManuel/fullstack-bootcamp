@@ -1,0 +1,37 @@
+.OKNotification {
+    background-color: rgb(0, 200, 0);
+    border-radius: 5px;
+    padding:10px;
+    border: 1px solid black;
+    color: white;
+}
+.ErrNotification {
+    background-color: rgb(230, 1, 1);
+    border-radius: 5px;
+    padding:10px;
+    border: 1px solid black;
+    color: white;
+}
+table, th, td {
+    border: 0;
+    border-left: 1px;
+    border-bottom: 1px;
+    border-style: solid;
+    padding: 5px;
+}
+th {
+    border-top: 1px;
+    border-style: solid;
+}
+tr th:last-child {
+    border-right: 1px;
+    border-style: solid;
+}
+tr td:last-child {
+    border-bottom: 0;
+    border-style: solid;
+}
+table {
+    border: 0;
+    border-style: solid;
+}
