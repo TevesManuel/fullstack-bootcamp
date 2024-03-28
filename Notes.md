@@ -31,3 +31,9 @@ This file is for personal use and public use for anyone who reads it, it has poi
             }
         },
         })
+
+-Free online Mongo DB
+    MongoDB Atlas Database : https://www.mongodb.com/es/atlas/database
+
+-All IPs
+    0.0.0.0
