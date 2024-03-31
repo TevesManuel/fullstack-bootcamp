@@ -4,13 +4,13 @@ module.exports.run_test = (fn, test_name) => {
         const startTime = performance.now();
         return fn().then(() => {
             const endTime = performance.now();
-            console.log(`[✔]${test_name} are executed in ${endTime-startTime}ms`);    
+            console.log(`[✔] ${test_name} are executed in ${endTime-startTime}ms`);    
         }).catch((error) => {
-            console.error(`[❌]${test_name} error: ${error}`);
+            console.error(`[❌] ${test_name} error: ${error}`);
         })
     }
     else
     {
-        console.log(`❌[${test_name}] is not valid function`);
+        console.log(`❌ [${test_name}] is not valid function`);
     }
 }

@@ -15,9 +15,17 @@ const test_01_createPhone = () => {
         assert(true, phoneModel.number == phoneCreated.number);
     });
 }
+const test_02_checkLength = () => {
+    return phoneController.getAllPhones().then(phones => {
+        phoneController.getPhoneLength().then(length => {
+            assert(true, 1 == length);
+        });
+    });
+}
 
 module.exports.run_all = () => {
     return Promise.all([
-        runner.run_test(test_01_createPhone, " test_01_createPhone"),
+        runner.run_test(test_01_createPhone, "test_01_createPhone"),
+        runner.run_test(test_02_checkLength, "test_02_checkLength"),
     ]);
 };

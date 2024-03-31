@@ -5,13 +5,18 @@ const morgan = require('morgan');
 
 const PORT = 3000;
 
+const db              = require('./db');
+db.setup_db();
+
+process.on('exit', () => {
+  db.turn_off();
+});
+
 const phoneController = require('./Controllers/Phone');
 const phoneModel      = require('./Models/Phone');
 
-let persons = phoneController.getAllPhones();
 app.use(express.static('public'));
 app.use(express.json());
-
 app.use(morgan(function (tokens, req, res) {
     console.log(req.body);
     return [
@@ -25,15 +30,22 @@ app.use(morgan(function (tokens, req, res) {
   }));
 
 app.get('/info', (request, response) => {
-    response.send(`<p>Phonebook has info for ${persons.length} people</p><p>${new Date()}</p>`);
+  phoneController.getPhoneLength().then(length => {
+    response.send(`<p>Phonebook has info for ${length} people</p><p>${new Date()}</p>`);
+  });
 });
 
 app.get('/api/persons', (request, response) => {
+  phoneController.getAllPhones().then((persons) => {
+    console.log(persons);
     response.json(persons);
+  });
 });
 
 app.get('/api/persons/:id', (request, response) => {
-    response.json(persons.find(person => person.id == request.params.id));
+  phoneController.getPhoneById(request.params.id).then(person => {
+    response.json(person);
+  });
 });
 
 app.delete('/api/persons/:id', (request, response) => {
@@ -57,19 +69,18 @@ app.post('/api/persons/', (request, response) => {
       response.status(400);
       response.end();
     }
-    else if(persons.find(person => person.name == request.body.name)) 
-    {
-      response.send("Name already exists");
-      response.status(400);
-      response.end();
-    }
+    // else if(persons.find(person => person.name == request.body.name)) 
+    // {
+    //   response.send("Name already exists");
+    //   response.status(400);
+    //   response.end();
+    // }
     else
     {
       let new_person = phoneModel({
         name: request.body.name,
         number: request.body.number,
       });
-      persons = persons.concat(new_person);
       phoneController.createPhone(new_person);
       response.status(200);
       response.json(new_person);
@@ -85,4 +96,6 @@ app.put('/api/persons/:id', (request, response) => {
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
+}).on("close", () => {
+  db.turn_off();
 });

@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
-const Phone = require('./../Models/Phone');
+const PhoneModel = require('./../Models/Phone');
 
 /**
- * @param {Phone} phoneModel
+ * @param {PhoneModel} phoneModel
  */
 const createPhone = (phoneModel) => {
     return phoneModel.save().then(result => {
@@ -12,16 +12,21 @@ const createPhone = (phoneModel) => {
 };
 
 const getAllPhones = () => {
-    return Phone.find({});
+    return PhoneModel.find({});
 };
 
 /**
  * @param {Number} phoneId
  */
 const getPhoneById = (phoneId) => {
-    return Phone.findById(phoneId);
+    return PhoneModel.findById(phoneId);
 };
 
-module.exports.createPhone  = createPhone;
-module.exports.getAllPhones = getAllPhones;
-module.exports.getPhoneById = getPhoneById;
+const getPhoneLength = () => {
+    return PhoneModel.countDocuments({});
+};
+
+module.exports.createPhone    = createPhone;
+module.exports.getAllPhones   = getAllPhones;
+module.exports.getPhoneById   = getPhoneById;
+module.exports.getPhoneLength = getPhoneLength;

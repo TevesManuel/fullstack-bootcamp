@@ -35,7 +35,7 @@ const TableOfPersons = ({persons, filter, setPersons, setNotificationObject}) =>
                     <th>Number</th>
                 </tr>
             </thead>
-            {persons.filter(person => person.name.toUpperCase().includes(filter.toUpperCase())).map(person => <PersonData key={person.id} person={person} deleteCallback={callback_delete(person.id)}/>)}
+            {persons.filter(person => person.name.toUpperCase().includes(filter.toUpperCase())).map(person => <PersonData key={person._id} person={person} deleteCallback={callback_delete(person.id)}/>)}
         </table>
     );
 };
