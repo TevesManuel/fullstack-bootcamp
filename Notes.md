@@ -37,3 +37,6 @@ This file is for personal use and public use for anyone who reads it, it has poi
 
 -All IPs
     0.0.0.0
+
+-For Dev dependencies
+    npm i --save-dev PACKAGE_NAME
