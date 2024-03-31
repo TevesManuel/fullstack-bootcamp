@@ -5,28 +5,10 @@ const morgan = require('morgan');
 
 const PORT = 3000;
 
-let persons = [
-    { 
-      "id": 1,
-      "name": "Arto Hellas", 
-      "number": "040-123456"
-    },
-    { 
-      "id": 2,
-      "name": "Ada Lovelace", 
-      "number": "39-44-5323523"
-    },
-    { 
-      "id": 3,
-      "name": "Dan Abramov", 
-      "number": "12-43-234345"
-    },
-    { 
-      "id": 4,
-      "name": "Mary Poppendieck", 
-      "number": "39-23-6423122"
-    }
-]
+const phoneController = require('./Controllers/Phone');
+const phoneModel      = require('./Models/Phone');
+
+let persons = phoneController.getAllPhones();
 app.use(express.static('public'));
 app.use(express.json());
 
@@ -83,12 +65,12 @@ app.post('/api/persons/', (request, response) => {
     }
     else
     {
-      let new_person = {
+      let new_person = phoneModel({
         name: request.body.name,
         number: request.body.number,
-        id: Math.ceil(Math.random()*1000),
-      };
+      });
       persons = persons.concat(new_person);
+      phoneController.createPhone(new_person);
       response.status(200);
       response.json(new_person);
       response.end();  
@@ -96,9 +78,7 @@ app.post('/api/persons/', (request, response) => {
 });
 
 app.put('/api/persons/:id', (request, response) => {
-  let updated_person = request.body;
-  persons = persons.map(person => person.id == request.params.id ? updated_person : person);
-  response.json(updated_person);
+  response.json(phoneController.getPhoneById(request.params.id));
   response.status(200);
   response.end();
 });
