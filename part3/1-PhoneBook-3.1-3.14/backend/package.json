@@ -24,6 +24,7 @@
   "dependencies": {
     "express": "^4.19.1",
     "mongoose": "^8.2.3",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "normalize-mongoose": "^1.0.0"
   }
 }

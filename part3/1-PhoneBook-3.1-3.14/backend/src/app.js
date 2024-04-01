@@ -49,11 +49,14 @@ app.get('/api/persons/:id', (request, response) => {
 });
 
 app.delete('/api/persons/:id', (request, response) => {
-    console.log(`New petition for DELETE ${request.params.id} ID person.`);
-    console.log(persons.length);
-    persons = persons.filter(person => person.id != request.params.id);
-    console.log(persons.length);
+  console.log("id", request.params.id);
+  phoneController.deletePhone(request.params.id).then(() => {
+    console.log("asd");
     response.status(204).end();
+  }).catch(err => {
+    response.status(500);
+    response.json(err);
+  })
 });
 
 app.post('/api/persons/', (request, response) => {
@@ -69,12 +72,6 @@ app.post('/api/persons/', (request, response) => {
       response.status(400);
       response.end();
     }
-    // else if(persons.find(person => person.name == request.body.name)) 
-    // {
-    //   response.send("Name already exists");
-    //   response.status(400);
-    //   response.end();
-    // }
     else
     {
       let new_person = phoneModel({
