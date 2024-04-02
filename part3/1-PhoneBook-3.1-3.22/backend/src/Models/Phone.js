@@ -1,18 +1,22 @@
 const mongoose = require('mongoose');
 
 const phoneSchema = new mongoose.Schema({
-    name: String,
+    name: {
+        type: String,
+        minLength: 3,
+        required: true,
+    },
     number: String,
 }, {
-        toJSON: {
-            transform(doc, ret) {
-                ret.id = ret._id.toString();
-                delete ret._id;
-                delete ret.__v;
-                return ret;
-            }
+    toJSON: {
+        transform(doc, ret) {
+            ret.id = ret._id.toString();
+            delete ret._id;
+            delete ret.__v;
+            return ret;
         }
     }
+}
 );
 
 const Phone = mongoose.model('Phone', phoneSchema);

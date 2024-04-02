@@ -1,14 +1,12 @@
-const mongoose = require('mongoose');
-
 const PhoneModel = require('./../Models/Phone');
 const controllerErrors = require('./../error');
 
 const validateModel = (phoneModel) => {
-    if(phoneModel.name == null)
+    if(phoneModel.name === null)
         throw new controllerErrors.KeyError('name');
-    if(phoneModel.number == null)
+    if(phoneModel.number === null)
         throw new controllerErrors.KeyError('number');
-}
+};
 
 /**
  * @param {PhoneModel} phoneModel
@@ -39,7 +37,7 @@ const getPhoneById = (phoneId) => {
             throw new controllerErrors.NotFoundError(phoneId);
     }).catch(err => {
         throw new controllerErrors.DatabaseInternalError(err);
-    })
+    });
 };
 
 const getPhoneLength = () => {
@@ -67,7 +65,7 @@ const updatePhone = (phoneId, phoneModel) => {
     }).catch(err => {
         throw new controllerErrors.DatabaseInternalError(err);
     });
-}
+};
 
 module.exports.createPhone    = createPhone;
 module.exports.getAllPhones   = getAllPhones;

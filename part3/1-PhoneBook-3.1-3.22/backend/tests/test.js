@@ -6,6 +6,6 @@ db.setup_db().then(() => {
         test_phone.run_all(),
     ];
     Promise.all(asynchronousFunctions).then(() => {
-        db.turn_off()
+        db.turn_off();
     });
 });

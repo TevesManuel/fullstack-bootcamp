@@ -8,7 +8,9 @@
     "dev": "nodemon ./src/app.js",
     "test": "node ./tests/test.js",
     "build:ui": "rm public -r -f && mkdir public && cd ./../frontend && npm run build && cp -r ./dist/* ./../backend/public/",
-    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push"
+    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push",
+    "lint": "eslint .",
+    "format": "eslint . --fix"
   },
   "keywords": [
     "bootcamp",
@@ -17,8 +19,8 @@
   "author": "Manuel Teves",
   "license": "MIT",
   "devDependencies": {
-    "axios": "^1.6.8",
     "dotenv": "^16.4.5",
+    "eslint": "^8.57.0",
     "nodemon": "^3.1.0"
   },
   "dependencies": {
