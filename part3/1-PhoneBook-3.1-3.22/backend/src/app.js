@@ -13,7 +13,7 @@ process.on('exit', () => {
 const phoneController  = require('./Controllers/Phone');
 const phoneModel       = require('./Models/Phone');
 
-const controllerErrors = require('./../error');
+const controllerErrors = require('./error');
 
 app.use(express.static('public'));
 app.use(express.json());
@@ -37,7 +37,6 @@ app.get('/info', (request, response, next) => {
 
 app.get('/api/persons', (request, response, next) => {
     phoneController.getAllPhones().then((persons) => {
-        console.log(persons);
         response.json(persons);
     }).catch(err => next(err));
 });
@@ -72,7 +71,6 @@ app.put('/api/persons/:id', (request, response, next) => {
         number: request.body.number,
     };
     phoneController.updatePhone(request.params.id, updated_person).then(phone => {
-        console.log(phone);
         response.status(200);
         response.json(phone);
         response.end();
@@ -82,9 +80,10 @@ app.put('/api/persons/:id', (request, response, next) => {
 const errorHandler = (error, request, response, next) => {
     console.log(`[!] Err: ${error.name}`);
 
-    if (error instanceof controllerErrors.DatabaseInternalError) {
-        return response.status(400).send({ error: error.name });
-    }
+    if (error instanceof controllerErrors.DatabaseInternalError)
+        return response.status(400).send({ error: error.error });
+    else if(error.name === 'ValidationError')
+        return response.status(400).json({ error: error.message });
 
     next(error);
 };

@@ -10,6 +10,7 @@ class DatabaseInternalError extends Error {
             super(`Database internal error: ${err}`);
             this.name = 'DatabaseInternalError';
         }
+        this.error = err;
     }
 }
 

@@ -1,39 +1,37 @@
 import { useEffect, useState } from 'react';
-import Form from "./components/Form";
-import TableOfPersons from "./components/TableOfPersons";
-import Filter from "./components/Filter";
-import Notification from "./components/Notifications";
-
-import axios from 'axios';
+import Form from './components/Form';
+import TableOfPersons from './components/TableOfPersons';
+import Filter from './components/Filter';
+import Notification from './components/Notifications';
 
 import personService from './services/Persons';
 
-import "./style.css"
+import './style.css';
 
 const App = () => {
 
-  const [persons, setPersons] = useState([]);
+    const [persons, setPersons] = useState([]);
 
-  const fetchPersonsFromDB = () => {
-    personService.getAll().then(persons => setPersons(persons));
-  };
+    const fetchPersonsFromDB = () => {
+        personService.getAll().then(persons => setPersons(persons));
+    };
 
-  useEffect(fetchPersonsFromDB, []);
+    useEffect(fetchPersonsFromDB, []);
 
-  const [filter, setFilter] = useState('');
-  const [notificationObject, setNotificationObject] = useState({})
+    const [filter, setFilter] = useState('');
+    const [notificationObject, setNotificationObject] = useState({});
 
-  return (
-    <div>
-      <Notification notificationObject={notificationObject} />
-      <h1>Phonebook</h1>
-      <Filter filter={filter} setFilter={setFilter}/>
-      <h2>Add a new</h2>
-      <Form persons={persons} setPersons={setPersons} setNotificationObject={setNotificationObject}/>
-      <h2>Numbers</h2>
-      <TableOfPersons filter={filter} persons={persons} setPersons={setPersons} setNotificationObject={setNotificationObject}/>
-    </div>
-  )
-}
+    return (
+        <div>
+            <Notification notificationObject={notificationObject} />
+            <h1>Phonebook</h1>
+            <Filter filter={filter} setFilter={setFilter}/>
+            <h2>Add a new</h2>
+            <Form persons={persons} setPersons={setPersons} setNotificationObject={setNotificationObject}/>
+            <h2>Numbers</h2>
+            <TableOfPersons filter={filter} persons={persons} setPersons={setPersons} setNotificationObject={setNotificationObject}/>
+        </div>
+    );
+};
 
-export default App
+export default App;

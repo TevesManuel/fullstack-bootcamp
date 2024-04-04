@@ -7,7 +7,7 @@ module.exports = {
     'plugin:react/jsx-runtime',
     'plugin:react-hooks/recommended',
   ],
-  ignorePatterns: ['dist', '.eslintrc.cjs'],
+  ignorePatterns: ['dist', '.eslintrc.cjs', 'package.json'],
   parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
   settings: { react: { version: '18.2' } },
   plugins: ['react-refresh'],
@@ -17,5 +17,27 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
+    'react/prop-types': 0,
+    
+      'indent': [
+        'error',
+        4
+      ],
+      'quotes': [
+          'error',
+          'single'
+      ],
+      'semi': [
+          'error',
+          'always'
+      ],
+      'eqeqeq': 'error',
+      'no-trailing-spaces': 'error',
+      'object-curly-spacing': [
+          'error', 'always'
+      ],
+      'arrow-spacing': [
+          'error', { 'before': true, 'after': true }
+      ],
   },
 }
