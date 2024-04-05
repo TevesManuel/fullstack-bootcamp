@@ -1,0 +1,32 @@
+{
+  "name": "bloglist-4.1-4.23",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./index.js",
+    "dev": "nodemon ./src/index.js",
+    "lint": "eslint .",
+    "lint-fix": "eslint . --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TevesManuel/fullstack-bootcamp.git"
+  },
+  "author": "Manuel Teves",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TevesManuel/fullstack-bootcamp/issues"
+  },
+  "homepage": "https://github.com/TevesManuel/fullstack-bootcamp#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.3.0"
+  },
+  "devDependencies": {
+    "dotenv": "^16.4.5",
+    "eslint": "^8.57.0",
+    "nodemon": "^3.1.0"
+  }
+}
