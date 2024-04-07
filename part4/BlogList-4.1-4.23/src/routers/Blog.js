@@ -1,12 +1,12 @@
 const blogController = require('./../controllers/Blog');
 const blogRouter     = require('express').Router();
 
-blogRouter.get('/', (request, response) => {
-    blogController.getAll().then(blogs => response.json(blogs));
+blogRouter.get('/', async (request, response) => {
+    return response.status(200).json(await blogController.getAll());
 });
 
-blogRouter.post('/', (request, response) => {
-    blogController.create(request.body).then(blog => response.status(201).json(blog));
+blogRouter.post('/', async (request, response) => {
+    return response.status(201).json(await blogController.create(request.body));
 });
 
 module.exports = blogRouter;
