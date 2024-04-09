@@ -25,8 +25,8 @@ describe('GET Blog API', () => {
     });
 
     test('blogs are returned with id and without _id', async () => {
-        let blogs = helper.blogsInDb();
-        console.log(blogs);
+        let blogs = await helper.blogsInDb();
+        console.log("asd", blogs);
         for(let blog of blogs)
         {
             expect(blog._id).toBeDefined();
