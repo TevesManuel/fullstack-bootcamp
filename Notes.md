@@ -40,3 +40,6 @@ This file is for personal use and public use for anyone who reads it, it has poi
 
 -For Dev dependencies
     npm i --save-dev PACKAGE_NAME
+
+-Remove try/catch for routers
+    That's possible with the express-async-errors library which automatically execute "next" function when there is an error
