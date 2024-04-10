@@ -18,5 +18,14 @@ const create = (blogModel) => {
     })).save();
 };
 
-module.exports.getAll = getAll;
-module.exports.create = create;
+/**
+*
+* @param {Number} blogId
+*/
+const deleteById = (blogId) => {
+   return BlogModel.findOneAndDelete(blogId);
+};
+
+module.exports.getAll     = getAll;
+module.exports.create     = create;
+module.exports.deleteById = deleteById;

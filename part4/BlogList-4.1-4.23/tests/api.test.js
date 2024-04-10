@@ -79,10 +79,35 @@ describe('POST Blog API', () => {
             'author': 'AuthorOfBlog',
             'url': 'BLOG_URL',
         };
-        console.log(await api.post('/api/blogs').send(new_blog_request));
+        await api.post('/api/blogs').send(new_blog_request).expect(400);
+    });
+    test('Cheking 400 STATE because url missing', async () => {
+        let new_blog_request = {
+            'title': 'NewBlog',
+            'author': 'AuthorOfBlog',
+        };
+        await api.post('/api/blogs').send(new_blog_request).expect(400);
     });
 
-}, 10000);
+});
+
+describe('DELETE Blog API', () => {
+
+    test('Simple delete case', async () => {
+        let initialNotesLenght = (await helper.blogsInDb()).length;
+        let new_blog_request = {
+            'title': 'NewBlog',
+            'author': 'AuthorOfBlog',
+            'url': 'BLOG_URL',
+        };
+        let new_blog_response = (await api.post('/api/blogs/').send(new_blog_request)).body;
+        // expect((await helper.blogsInDb()).lenght).toBeGreaterThan(initialNotesLenght);
+        console.log("REQURL", `/api/blogs/?id=${new_blog_response.id}`);
+        await api.delete(`/api/blogs/?id=${new_blog_response.id}`).expect(204);
+        // expect((await helper.blogsInDb()).length).toEqual(initialNotesLenght);
+    });
+
+});
 
 afterAll(() => {
     mongoose.connection.close();
