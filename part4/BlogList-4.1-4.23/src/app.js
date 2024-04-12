@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-require('express-async-errors')
+require('express-async-errors');
 const cors = require('cors');
 const db = require('./utils/db');
 const middleware = require('./utils/middleware');

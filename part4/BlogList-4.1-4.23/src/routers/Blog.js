@@ -10,10 +10,13 @@ blogRouter.post('/', async (request, response) => {
 });
 
 blogRouter.delete('/:id', async (request, response) => {
-    console.log("DELETE ENTERED");
-    console.log("THE ID", request.params.id);
-    blogController.deleteById(request.params.id);
-    return response.status(204);
+    await blogController.deleteById(request.params.id);
+    return response.status(204).end();
+});
+
+blogRouter.put('/:id', async (request, response) => {
+    await blogController.update(request.params.id, request.body);
+    response.send(200).end();
 });
 
 module.exports = blogRouter;

@@ -45,7 +45,7 @@ describe('POST Blog API', () => {
         };
         let countOfBlogs = (await helper.blogsInDb()).length;
         let new_blog_response = (await api.post('/api/blogs/').send(new_blog_request)).body;
-        console.log("RES", new_blog_response);
+        console.log('RES', new_blog_response);
         expect((await helper.blogsInDb()).length).toBeGreaterThan(countOfBlogs);
         expect(new_blog_response.title).toEqual(new_blog_request.title);
         expect(new_blog_response.author).toEqual(new_blog_request.author);
@@ -101,10 +101,30 @@ describe('DELETE Blog API', () => {
             'url': 'BLOG_URL',
         };
         let new_blog_response = (await api.post('/api/blogs/').send(new_blog_request)).body;
-        // expect((await helper.blogsInDb()).lenght).toBeGreaterThan(initialNotesLenght);
-        console.log("REQURL", `/api/blogs/?id=${new_blog_response.id}`);
-        await api.delete(`/api/blogs/?id=${new_blog_response.id}`).expect(204);
-        // expect((await helper.blogsInDb()).length).toEqual(initialNotesLenght);
+        expect((await helper.blogsInDb()).length).toBeGreaterThan(initialNotesLenght);
+        await api.delete(`/api/blogs/${new_blog_response.id}`).expect(204);
+        expect((await helper.blogsInDb()).length).toEqual(initialNotesLenght);
+    });
+
+    test('Delete not existent blog case', async () => {
+        await api.delete(`/api/blogs/${await helper.nonExistingId()}`).expect(204);
+    });
+
+});
+
+describe('PUT Blog API', () => {
+
+    test('Simple put case', async () => {
+        let new_blog_request = {
+            'title': 'NewBlog',
+            'author': 'AuthorOfBlog',
+            'url': 'BLOG_URL',
+        };
+        let new_blog_response = (await api.post('/api/blogs/').send(new_blog_request)).body;
+        await api.put(`/api/blogs/${new_blog_response.id}`)
+            .send({
+                'title': 'NewBlogModified'
+            }).expect(200);
     });
 
 });
