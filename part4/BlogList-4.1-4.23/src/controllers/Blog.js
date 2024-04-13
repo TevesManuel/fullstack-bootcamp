@@ -1,29 +1,38 @@
 const BlogModel = require('./../models/Blog');
+const userController = require('./../controllers/User');
 
 const safeBlogModel = (blogModel) => {
     return new BlogModel({
         title  : blogModel.title,
         author : blogModel.author,
         url    : blogModel.url,
+        user   : blogModel.user,
         likes  : blogModel.likes || 0,
     });
 };
 
 const getAll = () => {
-    return BlogModel.find({});
+    return BlogModel.find({}).populate('users');
 };
 
 /**
  *
  * @param {BlogModel} blogModel
  */
-const create = (blogModel) => {
-    return safeBlogModel(blogModel).save();
+const create = async (blogModel) => {
+    // let user = await userController.getById(blogModel.userId);
+    let user = await userController.getAny();
+    console.log('USER', user);
+    blogModel.user = user.id;
+    let savedBlog = await (safeBlogModel(blogModel)).save();
+    user.blogs = user.blogs.concat(savedBlog.id);
+    await user.save();
+    return savedBlog;
 };
 
 /**
 *
-* @param {Number} blogId
+* @param {mongoose.Schema.Types.ObjectId} blogId
 */
 const deleteById = (blogId) => {
     return BlogModel.findByIdAndDelete(blogId);
@@ -31,7 +40,7 @@ const deleteById = (blogId) => {
 
 /**
 *
-* @param {Number} blogId
+* @param {mongoose.Schema.Types.ObjectId} blogId
 * @param {BlogModel} blogModel
 *
 */

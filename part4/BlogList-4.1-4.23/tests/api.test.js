@@ -4,14 +4,21 @@ const app       = require('./../src/app');
 const helper    = require('./helper');
 const api       = supertest(app);
 const BlogModel = require('./../src/models/Blog');
+const UserModel = require('./../src/models/User');
 
 beforeEach(async () => {
     await BlogModel.deleteMany({});
+    await UserModel.deleteMany({});
 
     for (let blog of helper.initialBlogs)
     {
         let blogObject = new BlogModel(blog);
         await blogObject.save();
+    }
+    for (let user of helper.initialUsers)
+    {
+        let userObject = new UserModel(user);
+        await userObject.save();
     }
 });
 
@@ -125,6 +132,37 @@ describe('PUT Blog API', () => {
             .send({
                 'title': 'NewBlogModified'
             }).expect(200);
+    });
+
+});
+
+describe('POST Users API', () => {
+
+    test('Simple post case', async () => {
+        let new_user_request = {
+            'username': 'manuel_teves',
+            'name': 'Manuel Teves',
+            'password': 'abc123',
+        };
+        await api.post('/api/users').send(new_user_request).expect(201);
+    });
+
+    test('Short username post case', async () => {
+        let new_user_request = {
+            'username': 'mt',
+            'name': 'Manuel Teves',
+            'password': 'abc123',
+        };
+        await api.post('/api/users').send(new_user_request).expect(400);
+    });
+
+    test('Short password post case', async () => {
+        let new_user_request = {
+            'username': 'manuel_teves2',
+            'name': 'Manuel Teves',
+            'password': 'ab',
+        };
+        await api.post('/api/users').send(new_user_request).expect(400);
     });
 
 });
