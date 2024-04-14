@@ -17,6 +17,7 @@ beforeEach(async () => {
     }
     for (let user of helper.initialUsers)
     {
+        user.passwordHash = await helper.encrypt_pass(user.password);
         let userObject = new UserModel(user);
         await userObject.save();
     }
@@ -43,16 +44,22 @@ describe('GET Blog API', () => {
 
 describe('POST Blog API', () => {
 
-    test('Cheking of the creation of an user', async () => {
+    test('Cheking of the creation of an blog', async () => {
+
         let new_blog_request = {
             'title': 'NewBlog',
             'author': 'AuthorOfBlog',
             'url': 'BLOG_URL',
             'likes': 5,
         };
+        let token = ((await api.post('/api/login').send(helper.initialUsers[0])).body.token);
+        // console.log('TOKEN', token);
         let countOfBlogs = (await helper.blogsInDb()).length;
-        let new_blog_response = (await api.post('/api/blogs/').send(new_blog_request)).body;
-        console.log('RES', new_blog_response);
+
+        let new_blog_response = (await api.post('/api/blogs/')
+            .set('Authorization', `Bearer ${token}`)
+            .send(new_blog_request)).body;
+
         expect((await helper.blogsInDb()).length).toBeGreaterThan(countOfBlogs);
         expect(new_blog_response.title).toEqual(new_blog_request.title);
         expect(new_blog_response.author).toEqual(new_blog_request.author);
@@ -67,14 +74,20 @@ describe('POST Blog API', () => {
         // console.log('req', new_blog_request);
         // expect(new_blog_response).toEqual(new_blog_request);
     });
-    test('Cheking creating user without likes', async () => {
+    test('Cheking creating blog without likes', async () => {
         let new_blog_request = {
             'title': 'NewBlog',
             'author': 'AuthorOfBlog',
             'url': 'BLOG_URL',
         };
         let countOfBlogs = (await helper.blogsInDb()).length;
-        let new_blog_response = (await api.post('/api/blogs/').send(new_blog_request)).body;
+
+        let token = ((await api.post('/api/login').send(helper.initialUsers[0])).body.token);
+
+        let new_blog_response = (await api.post('/api/blogs/')
+            .set('Authorization', `Bearer ${token}`)
+            .send(new_blog_request)).body;
+
         expect((await helper.blogsInDb()).length).toBeGreaterThan(countOfBlogs);
         expect(new_blog_response.title).toEqual(new_blog_request.title);
         expect(new_blog_response.author).toEqual(new_blog_request.author);
@@ -86,14 +99,24 @@ describe('POST Blog API', () => {
             'author': 'AuthorOfBlog',
             'url': 'BLOG_URL',
         };
-        await api.post('/api/blogs').send(new_blog_request).expect(400);
+
+        let token = ((await api.post('/api/login').send(helper.initialUsers[0])).body.token);
+
+        await api.post('/api/blogs/')
+            .set('Authorization', `Bearer ${token}`)
+            .send(new_blog_request).expect(400);
     });
     test('Cheking 400 STATE because url missing', async () => {
         let new_blog_request = {
             'title': 'NewBlog',
             'author': 'AuthorOfBlog',
         };
-        await api.post('/api/blogs').send(new_blog_request).expect(400);
+
+        let token = ((await api.post('/api/login').send(helper.initialUsers[0])).body.token);
+
+        await api.post('/api/blogs/')
+            .set('Authorization', `Bearer ${token}`)
+            .send(new_blog_request).expect(400);
     });
 
 });
@@ -107,7 +130,13 @@ describe('DELETE Blog API', () => {
             'author': 'AuthorOfBlog',
             'url': 'BLOG_URL',
         };
-        let new_blog_response = (await api.post('/api/blogs/').send(new_blog_request)).body;
+
+        let token = ((await api.post('/api/login').send(helper.initialUsers[0])).body.token);
+
+        let new_blog_response = (await api.post('/api/blogs/')
+            .set('Authorization', `Bearer ${token}`)
+            .send(new_blog_request)).body;
+
         expect((await helper.blogsInDb()).length).toBeGreaterThan(initialNotesLenght);
         await api.delete(`/api/blogs/${new_blog_response.id}`).expect(204);
         expect((await helper.blogsInDb()).length).toEqual(initialNotesLenght);
@@ -127,7 +156,13 @@ describe('PUT Blog API', () => {
             'author': 'AuthorOfBlog',
             'url': 'BLOG_URL',
         };
-        let new_blog_response = (await api.post('/api/blogs/').send(new_blog_request)).body;
+
+        let token = ((await api.post('/api/login').send(helper.initialUsers[0])).body.token);
+
+        let new_blog_response = (await api.post('/api/blogs/')
+            .set('Authorization', `Bearer ${token}`)
+            .send(new_blog_request)).body;
+
         await api.put(`/api/blogs/${new_blog_response.id}`)
             .send({
                 'title': 'NewBlogModified'
@@ -140,7 +175,7 @@ describe('POST Users API', () => {
 
     test('Simple post case', async () => {
         let new_user_request = {
-            'username': 'manuel_teves',
+            'username': 'test_manuel_teves',
             'name': 'Manuel Teves',
             'password': 'abc123',
         };
@@ -158,7 +193,7 @@ describe('POST Users API', () => {
 
     test('Short password post case', async () => {
         let new_user_request = {
-            'username': 'manuel_teves2',
+            'username': 'test_manuel_teves2',
             'name': 'Manuel Teves',
             'password': 'ab',
         };

@@ -11,8 +11,14 @@ const safeBlogModel = (blogModel) => {
     });
 };
 
-const getAll = () => {
-    return BlogModel.find({}).populate('users');
+
+/**
+*
+* @returns {BlogModel}
+*/
+const getAll = async () => {
+    //(MODEL).populate(KEY_TO_POPULATE)
+    return await BlogModel.find({ }).populate('user');
 };
 
 /**
@@ -20,11 +26,10 @@ const getAll = () => {
  * @param {BlogModel} blogModel
  */
 const create = async (blogModel) => {
-    // let user = await userController.getById(blogModel.userId);
-    let user = await userController.getAny();
-    console.log('USER', user);
+    //Get id from JWT
+    let user = await userController.getById(blogModel.decodedToken.id);
     blogModel.user = user.id;
-    let savedBlog = await (safeBlogModel(blogModel)).save();
+    let savedBlog = await safeBlogModel(blogModel).save();
     user.blogs = user.blogs.concat(savedBlog.id);
     await user.save();
     return savedBlog;

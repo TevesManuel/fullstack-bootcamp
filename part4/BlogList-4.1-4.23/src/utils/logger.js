@@ -1,3 +1,4 @@
 module.exports.info = (...out) => {
-    console.log(...out);
+    if (process.env.NODE_ENV !== 'test')
+        console.log(...out);
 };

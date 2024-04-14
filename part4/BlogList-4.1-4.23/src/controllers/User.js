@@ -14,7 +14,16 @@ const safeUserModel = (userModel) => {
  * @returns {UserModel}
  */
 const getById = async (userId) => {
-    return await UserModel.findOne({ userId });
+    return await UserModel.findById(userId);
+};
+
+/**
+*
+* @param {Object} params
+* @returns {UserModel}
+*/
+const getBy = async (params) => {
+    return await UserModel.findOne(params);
 };
 
 /**
@@ -26,13 +35,19 @@ const getAny = async () => {
 };
 
 /**
+*
+* @returns {UserModel}
+*/
+const getAll = async () => {
+    return await UserModel.find({ }).populate('blogs');
+};
+
+/**
  * @param {Object} userModel
  * @returns {UserModel}
  */
 const create = (userModel) => {
-    let safeModel = safeUserModel(userModel);
-    console.log('asd');
-    return safeModel.save();
+    return safeUserModel(userModel).save();
 };
 
 /**
@@ -47,5 +62,7 @@ const update = (userId, userModel) => {
 
 module.exports.getById = getById;
 module.exports.getAny  = getAny;
+module.exports.getBy   = getBy;
+module.exports.getAll  = getAll;
 module.exports.create  = create;
 module.exports.update  = update;
