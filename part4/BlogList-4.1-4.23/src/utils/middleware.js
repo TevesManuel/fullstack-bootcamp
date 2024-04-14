@@ -3,8 +3,21 @@ const logger = require('./logger');
 const requestLogger = (request, response, next) => {
     logger.info('Method:', request.method);
     logger.info('Path:  ', request.path);
+    logger.info('Has token:  ', !!request.token);
     logger.info('Body:  ', request.body);
     logger.info('---');
+    next();
+};
+
+const tokenExtractor = (request, response, next) => {
+    //Get Authorization header
+    const authorization = request.get('authorization');
+    //Verifing struct of the token
+    if (authorization && authorization.startsWith('Bearer ')) {
+        //Geting token
+        request.token = authorization.replace('Bearer ', '');
+    }
+
     next();
 };
 
@@ -39,5 +52,6 @@ const errorHandler = (error, request, response, next) => {
 module.exports = {
     requestLogger,
     unknownEndpoint,
-    errorHandler
+    errorHandler,
+    tokenExtractor,
 };

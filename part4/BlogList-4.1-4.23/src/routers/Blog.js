@@ -2,23 +2,14 @@ const blogController = require('./../controllers/Blog');
 const blogRouter     = require('express').Router();
 const jwt = require('jsonwebtoken');
 
-const getTokenFrom = request => {
-    //Get Token
-    const authorization = request.get('authorization');
-    //Verify
-    if (authorization && authorization.startsWith('Bearer ')) {
-        return authorization.replace('Bearer ', '');
-    }
-    return null;
-};
-
 blogRouter.get('/', async (request, response) => {
     return response.status(200).json(await blogController.getAll());
 });
 
 blogRouter.post('/', async (request, response) => {
+    // request.token as provided for the middleware
     //Verify and save JWT in request.body
-    request.body.decodedToken = jwt.verify(getTokenFrom(request), process.env.SECRET);
+    request.body.decodedToken = jwt.verify(request.token, process.env.SECRET);
     if (!request.body.decodedToken.id) {
         return response.status(401).json({ error: 'token invalid' });
     }
