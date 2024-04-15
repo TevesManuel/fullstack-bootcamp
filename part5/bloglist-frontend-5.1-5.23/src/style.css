@@ -1,0 +1,36 @@
+#titleContainer
+{
+    width: 100vw;
+    display: flex;
+    margin: 1%;
+}
+#titleText
+{
+    display: inline-block;
+    flex: 1;
+    margin: 0;
+}
+#stateLogin
+{
+    border: solid;
+    border-radius: 10px;
+    border-width: 1px;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: 5%;
+}
+#stateLoginText
+{
+    margin: 10%;
+}
+.centerContent
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+input
+{
+    box-sizing: border-box;
+    width: 100%;
+}
