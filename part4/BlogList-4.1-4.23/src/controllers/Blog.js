@@ -11,6 +11,14 @@ const safeBlogModel = (blogModel) => {
     });
 };
 
+/**
+ *
+ * @param {mongoose.Schema.Types.ObjectId} blogId
+ * @returns {BlogModel}
+ */
+const getById = async (blogId) => {
+    return await BlogModel.findById(blogId);
+};
 
 /**
 *
@@ -35,6 +43,18 @@ const create = async (blogModel) => {
     return savedBlog;
 };
 
+const belongTo = async (blogId, userId) => {
+    const blog = await getById(blogId);
+    if(blog)
+    {
+        return blog.user.toString() === userId.toString();
+    }
+    else
+    {
+        return true;
+    }
+};
+
 /**
 *
 * @param {mongoose.Schema.Types.ObjectId} blogId
@@ -53,7 +73,9 @@ const update = (blogId, blogModel) => {
     return BlogModel.findByIdAndUpdate(blogId, blogModel, { new: true });
 };
 
+module.exports.getById    = getById;
 module.exports.getAll     = getAll;
 module.exports.create     = create;
 module.exports.deleteById = deleteById;
 module.exports.update     = update;
+module.exports.belongTo   = belongTo;

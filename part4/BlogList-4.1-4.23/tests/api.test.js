@@ -138,14 +138,38 @@ describe('DELETE Blog API', () => {
             .send(new_blog_request)).body;
 
         expect((await helper.blogsInDb()).length).toBeGreaterThan(initialNotesLenght);
-        await api.delete(`/api/blogs/${new_blog_response.id}`).expect(204);
+        await api.delete(`/api/blogs/${new_blog_response.id}`)
+            .set('Authorization', `Bearer ${token}`)
+            .expect(204);
         expect((await helper.blogsInDb()).length).toEqual(initialNotesLenght);
     });
 
     test('Delete not existent blog case', async () => {
-        await api.delete(`/api/blogs/${await helper.nonExistingId()}`).expect(204);
+        let token = ((await api.post('/api/login').send(helper.initialUsers[0])).body.token);
+        await api.delete(`/api/blogs/${await helper.nonExistingId()}`)
+            .set('Authorization', `Bearer ${token}`)
+            .expect(204);
     });
 
+    test('Delete case without token', async () => {
+        let initialNotesLenght = (await helper.blogsInDb()).length;
+        let new_blog_request = {
+            'title': 'NewBlog',
+            'author': 'AuthorOfBlog',
+            'url': 'BLOG_URL',
+        };
+
+        let token = ((await api.post('/api/login').send(helper.initialUsers[0])).body.token);
+
+        let new_blog_response = (await api.post('/api/blogs/')
+            .set('Authorization', `Bearer ${token}`)
+            .send(new_blog_request)).body;
+
+        expect((await helper.blogsInDb()).length).toBeGreaterThan(initialNotesLenght);
+        await api.delete(`/api/blogs/${new_blog_response.id}`)
+            .expect(401);
+        expect((await helper.blogsInDb()).length).toBeGreaterThan(initialNotesLenght);
+    });
 });
 
 describe('PUT Blog API', () => {
@@ -200,7 +224,7 @@ describe('POST Users API', () => {
         await api.post('/api/users').send(new_user_request).expect(400);
     });
 
-});
+}, 10000);
 
 afterAll(() => {
     mongoose.connection.close();
