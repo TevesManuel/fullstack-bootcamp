@@ -1,15 +1,10 @@
 import loginService from './../services/login';
 import ez from './../utils/ez';
 
-const LoginForm = (
-    {
-        username,
-        setUsername,
-        password,
-        setPassword,
-        setToastMessage,
-    }
-) => {
+const LoginForm = ({ setToastMessage }) => {
+
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
 
     const handleLogin = (e) => {
         e.preventDefault();
