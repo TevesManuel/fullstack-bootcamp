@@ -17,11 +17,20 @@
     border-width: 1px;
     display: inline-block;
     margin-left: auto;
-    margin-right: 5%;
+    margin-right: 2%;
+    padding: 0% 1% 0% 1%;
 }
-#stateLoginText
+#stateLoginTouchable
 {
-    margin: 10%;
+    background-color: transparent;
+    border: 0;
+    color: black;
+    margin: 0;
+    padding: 0;
+}
+#stateLogin:hover
+{
+    background-color: rgb(200, 200, 200);
 }
 .centerContent
 {
@@ -33,4 +42,8 @@ input
 {
     box-sizing: border-box;
     width: 100%;
+}
+header
+{
+    padding: 0;
 }

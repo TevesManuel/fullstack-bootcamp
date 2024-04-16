@@ -19,7 +19,9 @@ const LoginForm = (
                     message: `Welcome again ${username}`,
                     type: 'ok',
                 });
-                console.log('Loggin request response', response);
+                window.localStorage.setItem('user', JSON.stringify(response.data));
+                setUsername('');
+                setPassword('');
             })
             .catch(() => {
                 setToastMessage({ message: 'User or password are invalid.', type: 'err' });

@@ -11,6 +11,9 @@ import './mvp.css';
 import './style.css';
 
 import config from './utils/config';
+import manageToasts from './utils/toastManager';
+
+import UserInfo from './components/UserInfo';
 
 const App = () => {
     const [blogs, setBlogs] = useState([]);
@@ -21,40 +24,10 @@ const App = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    useEffect(() => {
+    const [viewUserInfo, setViewUserInfo] = useState(false);
 
-        if(toastMessage)
-        {
-            switch (toastMessage.type)
-            {
-            case 'ok':
-                toast.success(toastMessage.message,  {
-                    position: 'bottom-right',
-                    autoClose: config.TIME_MS_ERROR_DISPLAY,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: 'dark',
-                    transition: Bounce,
-                });
-                break;
-            case 'err':
-                toast.error(toastMessage.message,  {
-                    position: 'bottom-right',
-                    autoClose: config.TIME_MS_ERROR_DISPLAY,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: 'dark',
-                    transition: Bounce,
-                });
-                break;
-            }
-        }
+    useEffect(() => {
+        manageToasts(toastMessage);
         setToastMessage(null);
     }, [toastMessage]);
 
@@ -66,6 +39,8 @@ const App = () => {
 
     return (
         <div>
+            { window.localStorage.getItem('user') && viewUserInfo ? <UserInfo setToastMessage={setToastMessage} setViewUserInfo={ setViewUserInfo }/> : null}
+
             <ToastContainer
                 position='top-right'
                 transition={Bounce}
@@ -73,9 +48,15 @@ const App = () => {
             <div id='titleContainer'>
                 <h2 id='titleText'>BlogApp</h2>
                 <div id='stateLogin'>
-                    <p id='stateLoginText'>
-                        {username ? username : 'Not logged'}
-                    </p>
+                    <button id="stateLoginTouchable" onClick={() => {if(window.localStorage.getItem('user')){setViewUserInfo(true);}}}>
+                        <p>
+                            {
+                                window.localStorage.getItem('user') ?
+                                    JSON.parse(window.localStorage.getItem('user')).name :
+                                    'Not logged'
+                            }
+                        </p>
+                    </button>
                 </div>
             </div>
             <LoginForm
