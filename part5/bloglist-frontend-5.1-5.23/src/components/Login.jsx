@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import loginService from './../services/login';
 import ez from './../utils/ez';
 
@@ -29,6 +31,7 @@ const LoginForm = ({ setToastMessage }) => {
                 <div>
             username
                     <input
+                        autoComplete="off"
                         type="text"
                         value={username}
                         name="Username"
@@ -38,6 +41,7 @@ const LoginForm = ({ setToastMessage }) => {
                 <div>
             password
                     <input
+                        autoComplete="off"
                         type="password"
                         value={password}
                         name="Password"

@@ -43,3 +43,6 @@ This file is for personal use and public use for anyone who reads it, it has poi
 
 -Remove try/catch for routers
     That's possible with the express-async-errors library which automatically execute "next" function when there is an error
+
+-Documentation for react-toastify
+    https://deadsimplechat.com/blog/react-toastify-the-complete-guide/

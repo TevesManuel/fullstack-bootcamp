@@ -1,5 +1,21 @@
-const TIME_MS_ERROR_DISPLAY = 5000;
+import { Bounce } from 'react-toastify';
+
+const NOTIFICATION_TIME = 5000;
+const NOTIFICATION_THEME = 'light';
+const NOTIFICATION_POSITION = 'bottom-right';
+
+const NOTIFICATION_CONFIG = {
+    position: NOTIFICATION_POSITION,
+    autoClose: NOTIFICATION_TIME,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: NOTIFICATION_THEME,
+    transition: Bounce,
+};
 
 export default {
-    TIME_MS_ERROR_DISPLAY,
+    NOTIFICATION_CONFIG,
 };

@@ -7,8 +7,10 @@ import Blog from './components/Blog';
 import LoginForm from './components/Login';
 import UserInfo from './components/UserInfo';
 import Navbar from './components/Navbar';
+import NewNoteForm from './components/NewNoteForm';
 
 import blogService from './services/blogs';
+
 import manageToasts from './utils/toastManager';
 
 import { Bounce, ToastContainer, toast } from 'react-toastify';
@@ -42,17 +44,22 @@ const App = () => {
                 position='top-right'
                 transition={Bounce}
             />
-            <Navbar/>
-            <LoginForm
-                setToastMessage={setToastMessage}
-            />
+            <Navbar setViewUserInfo={setViewUserInfo}/>
+            {
+                window.localStorage.getItem('user') ?
+                    <NewNoteForm
+                        blogs={blogs}
+                        setBlogs={setBlogs}
+                    /> :
+                    <LoginForm
+                        setToastMessage={setToastMessage}
+                    />
+            }
             <section>
                 <header>
                     <h2>Blogs</h2>
                 </header>
-                {blogs.map(blog =>
-                    <Blog key={blog.id} blog={blog} />
-                )}
+                { blogs.map(blog => <Blog key={blog.id} blog={blog} />) }
             </section>
         </div>
     );

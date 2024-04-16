@@ -1,4 +1,4 @@
-const Navbar = () => {
+const Navbar = ({ setViewUserInfo }) => {
     return (
         <div id='titleContainer'>
             <h2 id='titleText'>BlogApp</h2>

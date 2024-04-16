@@ -5,7 +5,7 @@ const UserInfo = ({ setToastMessage, setViewUserInfo }) => {
                 <p>Name: {JSON.parse(window.localStorage.getItem('user')).name}</p>
                 <p>Username: {JSON.parse(window.localStorage.getItem('user')).username}</p>
                 <button style={{ backgroundColor: 'red', border: 'red' }}onClick={() => {
-                    setToastMessage({ message: `See you later ${window.localStorage.getItem('user').name}`, type: 'normal' });
+                    setToastMessage({ message: `See you later ${JSON.parse(window.localStorage.getItem('user')).name}`, type: 'normal' });
                     window.localStorage.setItem('user', '');
                     setViewUserInfo(false);
                 }}>Logout</button>
