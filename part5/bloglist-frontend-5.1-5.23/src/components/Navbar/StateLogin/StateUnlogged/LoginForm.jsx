@@ -7,8 +7,6 @@ import loginService from '../../../../services/login';
 
 import ez from '../../../../utils/ez';
 
-import FlotantWindowCloseButton from './../../../utils/FlotantWindowCloseButton';
-
 const LoginForm = ({ setViewLogin }) => {
 
     const [username, setUsername] = useState('');
@@ -38,7 +36,6 @@ const LoginForm = ({ setViewLogin }) => {
 
     return (
         <form>
-            <FlotantWindowCloseButton setViewFn={ setViewLogin } />
             <div>
         username
                 <input

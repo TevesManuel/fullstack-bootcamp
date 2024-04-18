@@ -13,7 +13,7 @@ const StateUnlogged = ({ setUser }) => {
     return (
         <div>
             <button onClick={() => { setViewLogin(true); }} style={{ margin: '0px' }}>Login</button>
-            { viewLogin ? <FlotantWindow><LoginForm setViewLogin={setViewLogin}/></FlotantWindow> : null }
+            { viewLogin ? <FlotantWindow setViewFn={ setViewLogin }><LoginForm setViewLogin={setViewLogin}/></FlotantWindow> : null }
         </div>
     );
 };
