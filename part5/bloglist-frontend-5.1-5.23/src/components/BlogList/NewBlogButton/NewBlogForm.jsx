@@ -1,34 +1,36 @@
 import { useState } from 'react';
 
-import blogService from './../services/blogs';
+import blogService from '../../../services/blogs';
 
-import ez from './../utils/ez';
+import ez from '../../../utils/ez';
 
 import { toast } from 'react-toastify';
-import config from '../utils/config';
+import config from '../../../utils/config';
 
-
-const NewNoteForm = ({ blogs, setBlogs }) => {
+const NewNoteForm = ({ setViewForm, blogs, setBlogs }) => {
 
     const [blogTitle, setBlogTitle] = useState('');
     const [blogUrl, setBlogUrl] = useState('');
 
-
     const handleCreate = (e) => {
         e.preventDefault();
-        toast.promise(blogService.create({
-            author: JSON.parse(localStorage.getItem('user')).name,
-            username: JSON.parse(localStorage.getItem('user')).username,
-            title: blogTitle,
-            url: blogUrl,
-        }).then(response =>
-            setBlogs(blogs.concat(response))
-        ),
-        {
-            pending: 'Uploading the blog',
-            success: 'Blog uploaded',
-            error: 'Error uploading blog'
-        }, config.NOTIFICATION_CONFIG);
+        toast.promise(
+            blogService.create({
+                author: JSON.parse(localStorage.getItem('user')).name,
+                username: JSON.parse(localStorage.getItem('user')).username,
+                title: blogTitle,
+                url: blogUrl,
+            }).then(response =>
+            {
+                setBlogs(blogs.concat(response));
+                setViewForm(false);
+            }
+            )
+            ,{
+                pending: 'Uploading the blog',
+                success: 'Blog uploaded',
+                error: 'Error uploading blog'
+            }, config.NOTIFICATION_CONFIG);
     };
     return(
         <div className="centerContent">

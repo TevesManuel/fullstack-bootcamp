@@ -1,66 +1,22 @@
-/* eslint-disable no-unused-vars */
-import { useState, useEffect } from 'react';
+import BlogList from './components/BlogList/BlogList';
+import Navbar from './components/Navbar/Navbar';
 
-import config from './utils/config';
-
-import Blog from './components/Blog';
-import LoginForm from './components/Login';
-import UserInfo from './components/UserInfo';
-import Navbar from './components/Navbar';
-import NewNoteForm from './components/NewNoteForm';
-
-import blogService from './services/blogs';
-
-import manageToasts from './utils/toastManager';
-
-import { Bounce, ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import './mvp.css';
 import './style.css';
 
+import { useState } from 'react';
+
 const App = () => {
-    const [blogs, setBlogs] = useState([]);
-    const [toastMessage, setToastMessage] = useState({ });
-
-    const [viewUserInfo, setViewUserInfo] = useState(false);
-
-    useEffect(() => {
-        manageToasts(toastMessage);
-        setToastMessage(null);
-    }, [toastMessage]);
-
-    useEffect(() => {
-        blogService.getAll().then(blogs =>
-            setBlogs( blogs )
-        );
-    }, []);
+    const [user, setUser] = useState(!!localStorage.getItem('user'));
 
     return (
         <div>
-            { window.localStorage.getItem('user') && viewUserInfo ? <UserInfo setToastMessage={setToastMessage} setViewUserInfo={ setViewUserInfo }/> : null}
-
-            <ToastContainer
-                position='top-right'
-                transition={Bounce}
-            />
-            <Navbar setViewUserInfo={setViewUserInfo}/>
-            {
-                window.localStorage.getItem('user') ?
-                    <NewNoteForm
-                        blogs={blogs}
-                        setBlogs={setBlogs}
-                    /> :
-                    <LoginForm
-                        setToastMessage={setToastMessage}
-                    />
-            }
-            <section>
-                <header>
-                    <h2>Blogs</h2>
-                </header>
-                { blogs.map(blog => <Blog key={blog.id} blog={blog} />) }
-            </section>
+            <ToastContainer/>
+            <Navbar user={user} setUser={setUser}/>
+            <BlogList/>
         </div>
     );
 };
