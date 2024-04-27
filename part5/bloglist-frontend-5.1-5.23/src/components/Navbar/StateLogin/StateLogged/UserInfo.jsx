@@ -12,7 +12,6 @@ const UserInfo = ({ setViewUserInfo }) => {
                 window.localStorage.removeItem('user');
                 setViewUserInfo(false);
             }}>Logout</button>
-            <button onClick={() => setViewUserInfo(false)}>Close</button>
         </div>
     );
 };

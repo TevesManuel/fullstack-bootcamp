@@ -13,7 +13,7 @@ const StateLogged = ({ setUser }) => {
     {
         return (
             <div id='loggedStateDiv'>
-                { window.localStorage.getItem('user') && viewUserInfo ? <FlotantWindow><UserInfo setUser={ setUser } setViewUserInfo={ setViewUserInfo }/></FlotantWindow> : null}
+                { window.localStorage.getItem('user') && viewUserInfo ? <FlotantWindow setViewFn={ setViewUserInfo }><UserInfo setUser={ setUser } setViewUserInfo={ setViewUserInfo }/></FlotantWindow> : null}
 
                 <button id="stateLoginTouchable" onClick={() => {if(window.localStorage.getItem('user')){setViewUserInfo(true);}}}>
                     <p>

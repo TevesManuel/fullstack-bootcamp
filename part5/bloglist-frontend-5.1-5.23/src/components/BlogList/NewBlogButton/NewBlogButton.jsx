@@ -10,7 +10,7 @@ const NewBlogButton = ({ blogs, setBlogs }) =>
     };
     return (
         <div>
-            {viewForm ? <FlotantWindow><NewNoteForm setViewForm={setViewForm} blogs={blogs} setBlogs={setBlogs}/></FlotantWindow> : null}
+            {viewForm ? <FlotantWindow setViewFn={ setViewForm }><NewNoteForm setViewForm={setViewForm} blogs={blogs} setBlogs={setBlogs}/></FlotantWindow> : null}
             <button onClick={handleClick} id='newBlogButton' className={localStorage.getItem('user') ? 'abg' : 'ubg'}>+</button>
         </div>
     );

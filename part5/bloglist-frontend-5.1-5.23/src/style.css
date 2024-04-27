@@ -37,6 +37,10 @@
 {
     background-color: rgb(200, 200, 200);
 }
+h2:hover
+{
+    cursor: default;
+}
 #submitBlogButton
 {
     color: black;
@@ -104,6 +108,7 @@ aside:hover
 {
     background-color: rgb(200, 200, 200);
     border: 1px solid black;
+    cursor: pointer;
 }
 form
 {
