@@ -133,3 +133,11 @@ header
     color: black;
     font-size: 24px;
 }
+.likeSVG
+{    
+    width: 50%;
+}
+.likeSVG:hover
+{    
+    cursor: pointer;
+}
