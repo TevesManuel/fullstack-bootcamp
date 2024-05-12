@@ -3,13 +3,17 @@ require('dotenv').config();
 const saltRoundsHash = 10;
 const SECRET = process.env.SECRET;
 const PORT = process.env.PORT;
-const DB_URL = process.env.NODE_ENV === 'test'
-    ? process.env.TEST_DB_URL
-    : process.env.DB_URL;
+const DB_USERNAME = process.env.DB_USERNAME;
+const DB_PASSWORD = process.env.DB_PASSWORD;
+const DB_DATABASE = process.env.NODE_ENV === 'test'
+    ? "Tests"
+    : "blogApp";
 
 module.exports = {
     PORT,
-    DB_URL,
+    DB_USERNAME,
+    DB_PASSWORD,
+    DB_DATABASE,
     SECRET,
     saltRoundsHash,
 };
