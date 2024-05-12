@@ -2,7 +2,7 @@ const BlogModel = require('./../src/models/Blog');
 const UserModel = require('./../src/models/User');
 
 const encrypt_pass = async (pass) => {
-    return await require('bcrypt').hash(pass, require('./../src/utils/config').saltRoundsHash);
+    return await require('bcryptjs').hash(pass, require('./../src/utils/config').saltRoundsHash);
 };
 
 const initialBlogs = [

@@ -1,6 +1,6 @@
 const userController = require('./../controllers/User');
 const userRouter     = require('express').Router();
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 userRouter.post('/', async (request, response) => {
     if ( request.body.password.length < 3 )
