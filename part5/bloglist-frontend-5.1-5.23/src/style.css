@@ -141,3 +141,16 @@ header
 {    
     cursor: pointer;
 }
+.likeButton
+{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 3%;
+    background-color: rgb(100, 100, 100);
+    border: 0;
+} 
+.likeButton:hover
+{
+    background-color: rgb(255, 0, 0);
+}
