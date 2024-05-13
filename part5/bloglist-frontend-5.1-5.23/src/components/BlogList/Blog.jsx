@@ -2,9 +2,14 @@ import { useState } from 'react';
 import FlotantWindow from './../utils/FlotantWindow';
 import BlogInfo from './BlogInfo/BlogInfo';
 
-const Blog = ({ blog }) => {
+const Blog = ({ blog, updateBL }) => {
 
     const [view, setView] = useState(false);
+
+    const middlewareSetView = (newState) => {
+        setView(newState);
+        updateBL();
+    };
 
     const handleClick = () => {
         setView(true);
@@ -14,7 +19,10 @@ const Blog = ({ blog }) => {
     {
         return (
             <aside onClick={handleClick}>
-                {blog.title} {blog.author}
+                <h2>Title: </h2>
+                <p>{blog.title}</p>
+                <h2>Author: </h2>
+                <p>{blog.author}</p>
             </aside>
         );
     }
@@ -25,7 +33,7 @@ const Blog = ({ blog }) => {
                 <aside onClick={handleClick}>
                     {blog.title} {blog.author}
                 </aside>
-                <FlotantWindow setViewFn={setView}><BlogInfo blog={blog}/></FlotantWindow>
+                <FlotantWindow setViewFn={middlewareSetView}><BlogInfo blog={blog}/></FlotantWindow>
             </div>
         );
     }
