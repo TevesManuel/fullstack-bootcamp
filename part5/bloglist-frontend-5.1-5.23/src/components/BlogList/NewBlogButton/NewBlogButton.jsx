@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import NewNoteForm from './NewBlogForm';
+import NewBlogForm from './NewBlogForm';
 import FlotantWindow from '../../utils/FlotantWindow';
 
 const NewBlogButton = ({ blogs, setBlogs }) =>
@@ -10,7 +10,7 @@ const NewBlogButton = ({ blogs, setBlogs }) =>
     };
     return (
         <div>
-            {viewForm ? <FlotantWindow setViewFn={ setViewForm }><NewNoteForm setViewForm={setViewForm} blogs={blogs} setBlogs={setBlogs}/></FlotantWindow> : null}
+            {viewForm ? <FlotantWindow setViewFn={ setViewForm }><NewBlogForm setViewForm={setViewForm} blogs={blogs} setBlogs={setBlogs}/></FlotantWindow> : null}
             <button onClick={handleClick} id='newBlogButton' className={localStorage.getItem('user') ? 'abg' : 'ubg'}>+</button>
         </div>
     );

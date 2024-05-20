@@ -7,7 +7,7 @@ import ez from '../../../utils/ez';
 import { toast } from 'react-toastify';
 import config from '../../../utils/config';
 
-const NewNoteForm = ({ setViewForm, blogs, setBlogs }) => {
+const NewBlogForm = ({ setViewForm, blogs, setBlogs }) => {
 
     const [blogTitle, setBlogTitle] = useState('');
     const [blogUrl, setBlogUrl] = useState('');
@@ -34,7 +34,7 @@ const NewNoteForm = ({ setViewForm, blogs, setBlogs }) => {
     };
     return(
         <div className="centerContent">
-            <form onSubmit={handleCreate} id='newNoteForm'>
+            <form onSubmit={handleCreate} id='NewBlogForm'>
                 <div>
     Title
                     <input
@@ -62,4 +62,4 @@ const NewNoteForm = ({ setViewForm, blogs, setBlogs }) => {
         </div>
     );
 };
-export default NewNoteForm;
+export default NewBlogForm;

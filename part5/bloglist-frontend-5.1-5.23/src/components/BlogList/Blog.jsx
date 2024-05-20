@@ -33,7 +33,7 @@ const Blog = ({ blog, updateBL }) => {
                 <aside onClick={handleClick}>
                     {blog.title} {blog.author}
                 </aside>
-                <FlotantWindow setViewFn={middlewareSetView}><BlogInfo blog={blog}/></FlotantWindow>
+                <FlotantWindow setViewFn={middlewareSetView}><BlogInfo blog={blog} setViewFn={middlewareSetView}/></FlotantWindow>
             </div>
         );
     }

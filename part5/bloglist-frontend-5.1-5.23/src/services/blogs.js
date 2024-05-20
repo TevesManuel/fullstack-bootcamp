@@ -21,4 +21,14 @@ const update = (blog, blodId) => {
     }).then(response => response.data);
 };
 
-export default { getAll, create, update };
+const remove = (blogId) => {
+    return axios.delete(baseUrl.concat('/').concat(blogId), {
+        headers: {
+            'Authorization': `Bearer ${JSON.parse(localStorage.getItem('user')).token}`
+        }
+    }).then(res => {
+        return res.status;
+    });
+};
+
+export default { getAll, create, update, remove };

@@ -20,7 +20,9 @@ const BlogList = () => {
 
     // Función para actualizar BlogList
     const updateBlogList = () => {
-        blogs.sort((a, b) => a.likes - b.likes).reverse();
+        blogService.getAll().then(blogs =>
+            setBlogs( blogs.sort((a, b) => a.likes - b.likes).reverse() )
+        );
         setUpdateFlag(!updateFlag); // Cambia el estado para forzar una actualización
     };
 
