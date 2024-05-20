@@ -22,6 +22,8 @@ const NewBlogForm = ({ setViewForm, blogs, setBlogs }) => {
                 url: blogUrl,
             }).then(response =>
             {
+                console.log(JSON.parse(localStorage.getItem('user')));
+                console.log(response);
                 setBlogs(blogs.concat(response));
                 setViewForm(false);
             }

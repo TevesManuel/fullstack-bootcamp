@@ -8,6 +8,8 @@ import ConfirmWindow from './../../utils/ConfirmWindow';
 
 const BlogInfo = ({ blog, setViewFn }) => {
     const [likes, setLike] = useState(blog.likes);
+    const [confirmView, setConfirmView] = useState(false);
+
     console.log(window.localStorage.getItem('user'));
     const likeCallback = () => {
         // console.log(blog);
@@ -63,10 +65,11 @@ const BlogInfo = ({ blog, setViewFn }) => {
             <h2 style={{ margin: 0 }}>Link to the blog:</h2>
             <a href={blog.url} target='_blank' rel="noreferrer">{formatStr(blog.url, 30)}</a>
             <div className='bottomDivBlogInfo'>
-                <a className={ JSON.parse(localStorage.getItem('user')).username === blog.user.username ? 'BlogInfoDelete auth' : 'BlogInfoDelete unauth'} onClick={deleteCallback}>DELETE</a>
+                <a className={ JSON.parse(localStorage.getItem('user')).username === blog.user.username ? 'BlogInfoDelete auth' : 'BlogInfoDelete unauth'} onClick={() => setConfirmView(true)}>DELETE</a>
                 <h2 style={{ textAlign: '-webkit-center', display: 'inline' }}>{likes}</h2>
                 <button onClick={likeCallback} className="likeButton">♥</button>
             </div>
+            <ConfirmWindow callback={ deleteCallback } view={confirmView} setViewFn={setConfirmView} >Do you like delete this blog?</ConfirmWindow>
         </div>
     );
 };

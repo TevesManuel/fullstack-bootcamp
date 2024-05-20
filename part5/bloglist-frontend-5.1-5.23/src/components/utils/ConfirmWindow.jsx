@@ -1,16 +1,20 @@
 import FlotantWindow from './FlotantWindow';
 
-import { useState } from 'react';
-
-const ConfirmWindow = ({ text }) => {
-    const [view, setViewFn] = useState(true);
-    return(
-        <FlotantWindow setViewFn={setViewFn}>
-            <p>{text}</p>
-            <button>YES</button>
-            <button>NO</button>
-        </FlotantWindow>
-    );
+const ConfirmWindow = (props) => {
+    if(props.view)
+    {
+        return(
+            <FlotantWindow setViewFn={props.setViewFn}>
+                <div style={{ backgroundColor: 'white', padding: '6%', borderRadius: '10px' }}>
+                    <p>{props.children}</p>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <button onClick={props.callback}>YES</button>
+                        <button onClick={() => props.setViewFn(false)}>NO</button>
+                    </div>
+                </div>
+            </FlotantWindow>
+        );
+    }
 };
 
 export default ConfirmWindow;
