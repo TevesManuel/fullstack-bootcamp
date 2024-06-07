@@ -7,10 +7,12 @@ import ez from '../../../utils/ez';
 import { toast } from 'react-toastify';
 import config from '../../../utils/config';
 
-const NewBlogForm = ({ setViewForm, blogs, setBlogs }) => {
+const NewBlogForm = ({ setViewForm, setBL }) => {
 
     const [blogTitle, setBlogTitle] = useState('');
     const [blogUrl, setBlogUrl] = useState('');
+
+    console.log(setBL);
 
     const handleCreate = (e) => {
         e.preventDefault();
@@ -20,11 +22,9 @@ const NewBlogForm = ({ setViewForm, blogs, setBlogs }) => {
                 username: JSON.parse(localStorage.getItem('user')).username,
                 title: blogTitle,
                 url: blogUrl,
-            }).then(response =>
+            }).then(() =>
             {
-                console.log(JSON.parse(localStorage.getItem('user')));
-                console.log(response);
-                setBlogs(blogs.concat(response));
+                setBL();
                 setViewForm(false);
             }
             )

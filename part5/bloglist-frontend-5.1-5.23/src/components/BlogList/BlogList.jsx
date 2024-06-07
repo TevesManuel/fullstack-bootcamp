@@ -15,15 +15,11 @@ const BlogList = () => {
         );
     }, []);
 
-
-    const [updateFlag, setUpdateFlag] = useState(false);
-
     // Función para actualizar BlogList
     const updateBlogList = () => {
         blogService.getAll().then(blogs =>
             setBlogs( blogs.sort((a, b) => a.likes - b.likes).reverse() )
         );
-        setUpdateFlag(!updateFlag); // Cambia el estado para forzar una actualización
     };
 
     return (
@@ -34,7 +30,7 @@ const BlogList = () => {
                 </header>
                 { blogs.map(blog => <Blog updateBL={updateBlogList} key={blog.id} blog={blog} />) }
             </section>
-            <NewBlogButton blogs={blogs} setBlogs={setBlogs}/>
+            <NewBlogButton setBL={updateBlogList}/>
         </div>
     );
 };

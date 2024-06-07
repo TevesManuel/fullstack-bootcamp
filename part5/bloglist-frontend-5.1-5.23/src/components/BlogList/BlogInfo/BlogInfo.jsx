@@ -10,7 +10,6 @@ const BlogInfo = ({ blog, setViewFn }) => {
     const [likes, setLike] = useState(blog.likes);
     const [confirmView, setConfirmView] = useState(false);
 
-    console.log(window.localStorage.getItem('user'));
     const likeCallback = () => {
         // console.log(blog);
         blog.likes += 1;
