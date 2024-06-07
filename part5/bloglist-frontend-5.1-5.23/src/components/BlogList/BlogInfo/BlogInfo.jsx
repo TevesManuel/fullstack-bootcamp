@@ -73,4 +73,11 @@ const BlogInfo = ({ blog, setViewFn }) => {
     );
 };
 
+import PropTypes from 'prop-types';
+
+BlogInfo.propTypes = {
+    blog: PropTypes.object.isRequired,
+    setViewFn: PropTypes.func.isRequired,
+};
+
 export default BlogInfo;

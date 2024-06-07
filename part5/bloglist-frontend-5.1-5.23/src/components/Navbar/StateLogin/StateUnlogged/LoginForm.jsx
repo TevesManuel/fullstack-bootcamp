@@ -63,4 +63,10 @@ const LoginForm = ({ setViewLogin }) => {
     );
 };
 
+import PropTypes from 'prop-types';
+
+LoginForm.propTypes = {
+    setViewLogin: PropTypes.func.isRequired
+};
+
 export default LoginForm;

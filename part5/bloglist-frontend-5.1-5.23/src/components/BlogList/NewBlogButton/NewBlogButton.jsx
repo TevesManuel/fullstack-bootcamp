@@ -16,4 +16,10 @@ const NewBlogButton = ({ setBL }) =>
     );
 };
 
+
+import PropTypes from 'prop-types';
+
+NewBlogButton.propTypes = {
+    setBL: PropTypes.func.isRequired
+};
 export default NewBlogButton;

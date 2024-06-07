@@ -27,4 +27,10 @@ const FlotantWindow = (props) => {
     );
 };
 
+import PropTypes from 'prop-types';
+
+FlotantWindow.propTypes = {
+    setViewFn: PropTypes.func.isRequired
+};
+
 export default FlotantWindow;

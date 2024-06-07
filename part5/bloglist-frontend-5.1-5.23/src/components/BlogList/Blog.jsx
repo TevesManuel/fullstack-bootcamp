@@ -39,4 +39,11 @@ const Blog = ({ blog, updateBL }) => {
     }
 };
 
+import PropTypes from 'prop-types';
+
+Blog.propTypes = {
+    blog: PropTypes.object.isRequired,
+    updateBL: PropTypes.func.isRequired
+};
+
 export default Blog;

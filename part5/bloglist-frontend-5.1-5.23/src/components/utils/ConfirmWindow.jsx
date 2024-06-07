@@ -17,4 +17,11 @@ const ConfirmWindow = (props) => {
     }
 };
 
+import PropTypes from 'prop-types';
+
+ConfirmWindow.propTypes = {
+    view: PropTypes.bool.isRequired,
+    setViewFn: PropTypes.func
+};
+
 export default ConfirmWindow;

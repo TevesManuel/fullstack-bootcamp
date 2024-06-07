@@ -12,8 +12,6 @@ const NewBlogForm = ({ setViewForm, setBL }) => {
     const [blogTitle, setBlogTitle] = useState('');
     const [blogUrl, setBlogUrl] = useState('');
 
-    console.log(setBL);
-
     const handleCreate = (e) => {
         e.preventDefault();
         toast.promise(
@@ -64,4 +62,12 @@ const NewBlogForm = ({ setViewForm, setBL }) => {
         </div>
     );
 };
+
+import PropTypes from 'prop-types';
+
+NewBlogForm.propTypes = {
+    setViewForm: PropTypes.func.isRequired,
+    setBL: PropTypes.func.isRequired
+};
+
 export default NewBlogForm;

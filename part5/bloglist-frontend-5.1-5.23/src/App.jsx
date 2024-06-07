@@ -10,12 +10,12 @@ import './style.css';
 import { useState } from 'react';
 
 const App = () => {
-    const [user, setUser] = useState(!!localStorage.getItem('user'));
+    const [isLogged, setIsLogged] = useState(!!localStorage.getItem('user'));
 
     return (
         <div>
             <ToastContainer/>
-            <Navbar user={user} setUser={setUser}/>
+            <Navbar isLogged={isLogged} setIsLogged={setIsLogged}/>
             <BlogList/>
         </div>
     );

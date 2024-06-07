@@ -2,18 +2,18 @@ import { useEffect, useState } from 'react';
 import UserInfo from './UserInfo';
 import FlotantWindow from '../../../utils/FlotantWindow';
 
-const StateLogged = ({ setUser }) => {
+const StateLogged = ({ setIsLogged }) => {
     const [viewUserInfo, setViewUserInfo] = useState(false);
 
     useEffect(() => {
-        setUser(!!localStorage.getItem('user'));
-    }, [setUser, viewUserInfo]);
+        setIsLogged(!!localStorage.getItem('user'));
+    }, [setIsLogged, viewUserInfo]);
 
     if (window.localStorage.getItem('user'))
     {
         return (
             <div id='loggedStateDiv'>
-                { window.localStorage.getItem('user') && viewUserInfo ? <FlotantWindow setViewFn={ setViewUserInfo }><UserInfo setUser={ setUser } setViewUserInfo={ setViewUserInfo }/></FlotantWindow> : null}
+                { window.localStorage.getItem('user') && viewUserInfo ? <FlotantWindow setViewFn={ setViewUserInfo }><UserInfo setIsLogged={ setIsLogged } setViewUserInfo={ setViewUserInfo }/></FlotantWindow> : null}
 
                 <button id="stateLoginTouchable" onClick={() => {if(window.localStorage.getItem('user')){setViewUserInfo(true);}}}>
                     <p>
@@ -24,6 +24,12 @@ const StateLogged = ({ setUser }) => {
         );
     }
     else return 'error';
+};
+
+import PropTypes from 'prop-types';
+
+StateLogged.propTypes = {
+    setIsLogged: PropTypes.func.isRequired
 };
 
 export default StateLogged;
