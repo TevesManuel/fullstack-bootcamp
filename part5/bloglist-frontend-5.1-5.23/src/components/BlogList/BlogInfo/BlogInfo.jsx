@@ -39,20 +39,30 @@ const BlogInfo = ({ blog, setViewFn }) => {
     };
 
     const formatStr = (str, max_length) => {
-        let out = '';
-
-        for(let i = 0; i < str.length; i++)
+        if(str)
         {
-            if(i === max_length)
+            let out = '';
+
+            for(let i = 0; i < str.length; i++)
             {
-                out = out.concat('...');
+                if(i === max_length)
+                {
+                    out = out.concat('...');
+                }
+                else if(i < max_length)
+                {
+                    out = out.concat(str[i]);
+                }
             }
-            else if(i < max_length)
-            {
-                out = out.concat(str[i]);
-            }
+            return out;
         }
-        return out;
+    };
+
+    const checkUser = () => {
+        if(localStorage.getItem('user'))
+            return JSON.parse(localStorage.getItem('user')).username === blog.user.username;
+        else
+            return false;
     };
 
     return (
@@ -64,7 +74,7 @@ const BlogInfo = ({ blog, setViewFn }) => {
             <h2 style={{ margin: 0 }}>Link to the blog:</h2>
             <a href={blog.url} target='_blank' rel="noreferrer">{formatStr(blog.url, 30)}</a>
             <div className='bottomDivBlogInfo'>
-                <a className={ JSON.parse(localStorage.getItem('user')).username === blog.user.username ? 'BlogInfoDelete auth' : 'BlogInfoDelete unauth'} onClick={() => setConfirmView(true)}>DELETE</a>
+                <a className={ checkUser() ? 'BlogInfoDelete auth' : 'BlogInfoDelete unauth'} onClick={() => setConfirmView(true)}>DELETE</a>
                 <h2 style={{ textAlign: '-webkit-center', display: 'inline' }}>{likes}</h2>
                 <button onClick={likeCallback} className="likeButton">♥</button>
             </div>

@@ -46,3 +46,30 @@ This file is for personal use and public use for anyone who reads it, it has poi
 
 -Documentation for react-toastify
     https://deadsimplechat.com/blog/react-toastify-the-complete-guide/
+
+-For testing in frontend you need:
+    Run this commands:
+        npm install --save-dev vitest jsdom
+        npm install --save-dev @testing-library/react @testing-library/jest-dom
+        npm install --save-dev eslint-plugin-vitest-globals
+        npm install --save-dev @testing-library/user-event
+    Config the .eslintrc.cjs:
+        Add to env:
+            "vitest-globals/env": true
+        Add to extends:
+            'plugin:vitest-globals/recommended',
+    And finally for run tests:
+        npm test -- --coverage
+    Create and add content to vitest.config.ts:
+        import { defineConfig } from 'vitest/config';
+        import react from '@vitejs/plugin-react';
+
+        export default defineConfig({
+        test: {
+            globals: true,
+            environment: 'jsdom',
+        },
+        plugins: [react({
+            jsxRuntime: 'automatic'
+        })],
+        });
