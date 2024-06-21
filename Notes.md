@@ -59,7 +59,8 @@ This file is for personal use and public use for anyone who reads it, it has poi
         Add to extends:
             'plugin:vitest-globals/recommended',
     And finally for run tests:
-        npm test -- --coverage
+        npm test -- --coverage / bun vitest
+        
     Create and add content to vitest.config.ts:
         import { defineConfig } from 'vitest/config';
         import react from '@vitejs/plugin-react';
