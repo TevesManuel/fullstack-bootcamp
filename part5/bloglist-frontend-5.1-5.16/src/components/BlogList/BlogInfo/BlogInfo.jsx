@@ -30,7 +30,7 @@ const BlogInfo = ({ blog, setViewFn }) => {
                     pending: 'Waiting',
                     success: {
                         render({ data }){
-                            return `Hello ${data}`;
+                            return `The blog has been removed.`;
                         }
                     },
                     error: 'Erron removing the blog.',
