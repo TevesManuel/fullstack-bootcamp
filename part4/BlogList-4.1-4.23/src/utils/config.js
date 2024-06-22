@@ -6,8 +6,8 @@ const PORT = process.env.PORT;
 const DB_USERNAME = process.env.DB_USERNAME;
 const DB_PASSWORD = process.env.DB_PASSWORD;
 const DB_DATABASE = process.env.NODE_ENV === 'test'
-    ? "Tests"
-    : "blogApp";
+    ? 'Tests'
+    : 'blogApp';
 
 module.exports = {
     PORT,
