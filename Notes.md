@@ -74,3 +74,23 @@ This file is for personal use and public use for anyone who reads it, it has poi
             jsxRuntime: 'automatic'
         })],
         });
+
+Reducers:
+    
+    It is a pure function that receives the current state and an action object. If there is a state change, the old object does not change, but is replaced by a new object.
+
+    More info in:
+
+        https://redux.js.org/tutorials/essentials/part-1-overview-concepts#reducers
+        https://es.wikipedia.org/wiki/Programaci%C3%B3n_funcional#Funciones_puras
+
+Spread syntaxis:
+
+    const numbers = [1, 2, 3];
+    const new_numbers = [...numbers, 4, 5];
+    console.log(new_numbers); // Print "[1, 2, 3, 4, 5]"
+
+    
+    const numbers = [1, 2, 3];
+    const new_numbers = [numbers, 4, 5];
+    console.log(new_numbers); // Print "[[1, 2, 3], 4, 5]"
