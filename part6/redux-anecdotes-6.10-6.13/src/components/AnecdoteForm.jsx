@@ -1,6 +1,8 @@
 import { useDispatch } from 'react-redux';
 import { createAnecdote } from './../reducers/anecdoteReducer';
 import { useState } from 'react';
+import { setNotificationText, cleanNotification } from './../reducers/notificationReducer';
+
 const AnecdoteForm = () => {
     const dispatch = useDispatch();
 
@@ -10,10 +12,12 @@ const AnecdoteForm = () => {
         setAnecdote(event.target.value);
     };
 
-    //Controlled form
     const newCbk = (event) => {
         event.preventDefault();
         dispatch(createAnecdote(anecdote));
+        // eslint-disable-next-line no-useless-escape
+        dispatch(setNotificationText(`You created an anecdote \"${anecdote}\"`));
+        setTimeout(() => dispatch(cleanNotification()), 4000);
         setAnecdote('');
     };
 
