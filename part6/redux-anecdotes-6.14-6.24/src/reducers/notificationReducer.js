@@ -31,4 +31,14 @@ const notificationSlice = createSlice({
 });
 
 export const { setNotificationText, cleanNotification } = notificationSlice.actions;
+
+// Redux Thunk
+
+export const setNotification = (text, ms) => {
+    return async dispatch => {
+        dispatch(setNotificationText(text));
+        setTimeout(() => dispatch(cleanNotification()), ms);
+    };
+};
+
 export default notificationSlice.reducer;

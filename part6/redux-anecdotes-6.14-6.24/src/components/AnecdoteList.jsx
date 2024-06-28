@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { voteAnecdote } from './../reducers/anecdoteReducer';
 import Notification from './../components/Notification';
-import { setNotificationText, cleanNotification } from '../reducers/notificationReducer';
+import { setNotification } from '../reducers/notificationReducer';
 
 const AnecdoteList = () =>
 {
@@ -14,8 +14,7 @@ const AnecdoteList = () =>
     const vote = (anecdote) => {
         dispatch(voteAnecdote(anecdote));
         // eslint-disable-next-line no-useless-escape
-        dispatch(setNotificationText(`You voted \"${anecdote.content}\"`));
-        setTimeout(() => dispatch(cleanNotification()), 4000);
+        dispatch(setNotification(`You voted \"${anecdote.content}\"`, 4000));
     };
 
     return (

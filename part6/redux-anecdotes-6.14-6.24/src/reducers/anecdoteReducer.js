@@ -33,21 +33,20 @@ export const initializeAnecdotes = () => {
     };
 };
 
-import { setNotificationText, cleanNotification } from './../reducers/notificationReducer';
+import { setNotification } from './../reducers/notificationReducer';
 
 export const createAnecdote = content => {
     return async dispatch => {
         const newAnecdote = await anecdoteService.createNew(content);
         dispatch(appendAnecdote(newAnecdote));
         // eslint-disable-next-line no-useless-escape
-        dispatch(setNotificationText(`You created an anecdote \"${newAnecdote.content}\"`));
-        setTimeout(() => dispatch(cleanNotification()), 4000);
+        dispatch(setNotification(`You created an anecdote \"${newAnecdote.content}\"`, 4000));
     };
 };
 
 export const voteAnecdote = anecdote => {
     return async dispatch => {
-        const response = anecdoteService.update(anecdote.id, { ...anecdote, votes: anecdote.votes + 1 });
+        const response = await anecdoteService.update(anecdote.id, { ...anecdote, votes: anecdote.votes + 1 });
         dispatch(updateAnecdote(response));
     };
 };
