@@ -12,7 +12,7 @@ const AnecdoteList = () =>
     const dispatch = useDispatch();
 
     const vote = (anecdote) => {
-        dispatch(voteAnecdote(anecdote.id));
+        dispatch(voteAnecdote(anecdote));
         // eslint-disable-next-line no-useless-escape
         dispatch(setNotificationText(`You voted \"${anecdote.content}\"`));
         setTimeout(() => dispatch(cleanNotification()), 4000);

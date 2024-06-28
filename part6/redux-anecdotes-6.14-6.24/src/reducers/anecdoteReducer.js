@@ -11,8 +11,8 @@ const anecdoteSlice = createSlice({
         appendAnecdote(state, action) {
             return state.concat(action.payload);
         },
-        voteAnecdote(state, action) {
-            return state.map(anecdote => anecdote.id !== action.payload ? anecdote : { ...anecdote, votes: anecdote.votes + 1 });
+        updateAnecdote(state, action) {
+            return state.map(anecdote => anecdote.id !== action.payload.id ? anecdote : action.payload );
         },
         setAnecdotes(state, action) {
             return action.payload;
@@ -20,7 +20,7 @@ const anecdoteSlice = createSlice({
     },
 });
 
-export const { appendAnecdote, voteAnecdote, setAnecdotes } = anecdoteSlice.actions;
+export const { appendAnecdote, updateAnecdote, setAnecdotes } = anecdoteSlice.actions;
 
 // Redux Thunk
 
@@ -42,6 +42,13 @@ export const createAnecdote = content => {
         // eslint-disable-next-line no-useless-escape
         dispatch(setNotificationText(`You created an anecdote \"${newAnecdote.content}\"`));
         setTimeout(() => dispatch(cleanNotification()), 4000);
+    };
+};
+
+export const voteAnecdote = anecdote => {
+    return async dispatch => {
+        const response = anecdoteService.update(anecdote.id, { ...anecdote, votes: anecdote.votes + 1 });
+        dispatch(updateAnecdote(response));
     };
 };
 
