@@ -4,7 +4,7 @@ import Navbar from './components/Navbar/Navbar';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import './mvp.css';
+import 'mvp.css';
 import './style.css';
 
 import { useState } from 'react';
