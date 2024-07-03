@@ -110,3 +110,51 @@ plugins: [react({
 ### React Query & React Redux
 - React Query is a server state library, responsible for managing asynchronous operations between the server and client
 - Redux, etc. are client state libraries that can be used to store asynchronous data, although less efficiently when compared to a tool like React Query
+
+### Spread in elements
+
+``` Javascript
+<Greeting firstName='Arto' lastName='Hellas' />
+
+const person = {
+  firstName: 'Arto',
+  lastName: 'Hellas'
+}
+
+<Greeting {...person} />
+```
+
+### Personalized Hooks
+
+``` Javascript
+const useField = (type) => {
+  const [value, setValue] = useState('')
+
+  const onChange = (event) => {
+    setValue(event.target.value)
+  }
+
+  return {
+    type,
+    value,
+    onChange
+  }
+}
+const App = () => {
+  const name = useField('text')
+  // ...
+
+  return (
+    <div>
+      <form>
+        <input
+          type={name.type}
+          value={name.value}
+          onChange={name.onChange} 
+        /> 
+        // ...
+      </form>
+    </div>
+  )
+}
+```
