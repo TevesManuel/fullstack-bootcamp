@@ -240,4 +240,4 @@ const App = () => {
 - #### Babel
     Babel is a transpiler to convert new Javascript code into "old" Javascript code compatible with browsers, through presets that are collections of plugins (which are Babel extensions that modify the code in a specific way either for compatibility, optimization or another objective)
   In react use preset-react and for the new features of Javascript preset-dev
-      
+
