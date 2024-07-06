@@ -85,6 +85,55 @@ server: {
 ### All IPs
     0.0.0.0
 
+## How i use a databaase?
+### Connect to the database & close in crashing
+``` Javascript
+const mongoose = require('mongoose');
+const logger   = require('./logger');
+const config   = require('./config');
+const db_url   = `mongodb+srv://${config.DB_USERNAME}:${config.DB_PASSWORD}@cluster0.ythuy5f.mongodb.net/${config.DB_DATABASE}?retryWrites=true&w=majority&appName=Cluster0`;
+
+const setup_db = () => {
+    mongoose.set('strictQuery', false);
+    process.on('exit', () => turn_off());
+    // console.log('Connecting to', db_url);
+    return mongoose.connect(db_url).then((result) => result ? logger.info('[i] DB connected.') : logger.info('[!] Can\'t connect to the DB.'));
+};
+
+const turn_off = () => {
+    logger.info('[i] DB disconnected.');
+    mongoose.connection.close();
+};
+
+module.exports.setup_db = setup_db;
+module.exports.turn_off = turn_off;
+```
+### Schemes
+``` Javascript
+const mongoose = require('mongoose');
+
+const blogSchema = new mongoose.Schema({
+    title: {
+        type: String,
+        required: true,
+    },
+    author: String,
+    url: {
+        type: String,
+        required: true,
+    },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+    },
+    likes: Number
+});
+
+module.exports = mongoose.model('Blog', blogSchema); //Generate the model
+```
+### Models / Controller
+Exampe https://github.com/TevesManuel/fullstack-bootcamp/blob/main/part4/BlogList-4.1-4.23/src/controllers/Blog.js
+
 ## Routers on expressJS
 ### How configurate?
 ``` Javascript
