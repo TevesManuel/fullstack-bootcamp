@@ -50,7 +50,7 @@ const person = {
 <Greeting {...person} />
 ```
 
-### Spread in the objects
+#### Spread in the objects
 ``` Javascript
 > a
 { a: 2, b: 5 }
