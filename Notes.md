@@ -258,3 +258,5 @@ https://recharts.org/en-US/
 https://github.com/date-fns/date-fns
 - ### Security
 https://helmetjs.github.io/
+- ### The best linter
+https://prettier.io/
