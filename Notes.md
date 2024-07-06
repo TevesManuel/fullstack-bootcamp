@@ -28,14 +28,13 @@ const person = { name: name, age: age } === const person = { name, age }
 ### Spread
 #### Spread syntaxis:
 ```javascript
-    const numbers = [1, 2, 3];
-    const new_numbers = [...numbers, 4, 5];
-    console.log(new_numbers); // Print "[1, 2, 3, 4, 5]"
-
+const numbers = [1, 2, 3];
+const new_numbers = [...numbers, 4, 5];
+console.log(new_numbers); // Print "[1, 2, 3, 4, 5]"
     
-    const numbers = [1, 2, 3];
-    const new_numbers = [numbers, 4, 5];
-    console.log(new_numbers); // Print "[[1, 2, 3], 4, 5]"
+const numbers = [1, 2, 3];
+const new_numbers = [numbers, 4, 5];
+console.log(new_numbers); // Print "[[1, 2, 3], 4, 5]"
 ```
 
 #### Spread in elements
