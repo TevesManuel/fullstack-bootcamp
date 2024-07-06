@@ -13,6 +13,14 @@ npm create vite@latest {NAMEOFTHEPROJECT} -- --template react
 npm i --save-dev PACKAGE_NAME
 ```
 
+### Check & update dependencies
+```
+npm install -g npm-check-updates
+npm-check-updates
+ncu -u
+npm audit
+```
+
 ## Javascript Features
 ### Ternary operator
 ``` javascript
@@ -241,3 +249,10 @@ const App = () => {
     Babel is a transpiler to convert new Javascript code into "old" Javascript code compatible with browsers, through presets that are collections of plugins (which are Babel extensions that modify the code in a specific way either for compatibility, optimization or another objective)
   In react use preset-react and for the new features of Javascript preset-dev
 
+## Libraries
+- ### Complex forms
+https://react-hook-form.com/
+- ### Graphics
+https://recharts.org/en-US/
+### Dates
+https://github.com/date-fns/date-fns
