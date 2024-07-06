@@ -1,4 +1,6 @@
-# This file is for personal use and public use for anyone who reads it, it has points that it is useful for me in particular to leave written down in some accessible place while I do the bootcamp.
+# My notes
+## Objetive
+This file is for personal use and public use for anyone who reads it, it has points that it is useful for me in particular to leave written down in some accessible place while I do the bootcamp.
 
 ## Command line notes
 ### How to create a project with Vite + React:
@@ -23,11 +25,8 @@ Explanation: result is where val1 or val2 will be deposited, which val will be d
 const person = { name: name, age: age } === const person = { name, age }
 ```
 
-### Inverted commas ( ` )
-    ` = ALT+96 [ASCII]
-
-## Spread
-### Spread syntaxis:
+### Spread
+#### Spread syntaxis:
 ```javascript
     const numbers = [1, 2, 3];
     const new_numbers = [...numbers, 4, 5];
@@ -39,7 +38,7 @@ const person = { name: name, age: age } === const person = { name, age }
     console.log(new_numbers); // Print "[[1, 2, 3], 4, 5]"
 ```
 
-### Spread in elements
+#### Spread in elements
 
 ``` Javascript
 <Greeting firstName='Arto' lastName='Hellas' />
@@ -53,12 +52,14 @@ const person = {
 ```
 
 ### Spread in the objects
+``` Javascript
 > a
 { a: 2, b: 5 }
 > b
 { b: 7, c: 8 }
 > {...a, ...b}
 { a: 2, b: 7, c: 8 }
+```
 
 ## Vite configurations
 ### Proxy Vite for develop Front & Back
@@ -84,12 +85,28 @@ server: {
 ### All IPs
     0.0.0.0
 
+## Routers on expressJS
+### How configurate?
+``` Javascript
+app.use('/api/login', loginRouter);
+```
+``` Javascript
+const loginRouter = require('express').Router();
+loginRouter.post('/', async (request, response) => {...};
+loginRouter.get('/users', async (request, response) => {...};
+//...
+module.exports = loginRouter;
+```
 ### Remove try/catch for middlewares
-    That's possible with the express-async-errors library which automatically execute "next" function when there is an error
+That's possible with the express-async-errors library which automatically execute "next" function when there is an error
+``` Javascript
+// in the app file
+require('express-async-errors');
+```
 
 ## Documentation of libraries
 ### Documentation for react-toastify
-    https://deadsimplechat.com/blog/react-toastify-the-complete-guide/
+https://deadsimplechat.com/blog/react-toastify-the-complete-guide/
 
 ## Testing
 
@@ -132,8 +149,8 @@ plugins: [react({
 ## Reducers:    
 ### It is a pure function that receives the current state and an action object. If there is a state change, the old object does not change, but is replaced by a new object.
 #### More info in:
--https://redux.js.org/tutorials/essentials/part-1-overview-concepts#reducers
--https://es.wikipedia.org/wiki/Programaci%C3%B3n_funcional#Funciones_puras
+- https://redux.js.org/tutorials/essentials/part-1-overview-concepts#reducers
+- https://es.wikipedia.org/wiki/Programaci%C3%B3n_funcional#Funciones_puras
 ### React Query & React Redux
 - React Query is a server state library, responsible for managing asynchronous operations between the server and client
 - Redux, etc. are client state libraries that can be used to store asynchronous data, although less efficiently when compared to a tool like React Query
