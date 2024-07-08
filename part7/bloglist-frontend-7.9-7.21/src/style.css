@@ -1,0 +1,163 @@
+#titleContainer {
+    width: 100vw;
+    display: flex;
+    margin: 1%;
+}
+#titleText {
+    display: inline-block;
+    flex: 1;
+    margin: 0;
+}
+#loggedStateDiv {
+    border: solid;
+    border-radius: 10px;
+    border-width: 1px;
+    padding: 0% 1% 0% 1%;
+}
+#stateLogin {
+    display: inline-block;
+    margin-left: auto;
+    margin-right: 2%;
+}
+#stateLoginTouchable {
+    background-color: transparent;
+    border: 0;
+    color: black;
+    margin: 0;
+    padding: 0;
+    width: max-content;
+    padding: 0px 10px 0px 10px;
+}
+#stateLogin:hover {
+    background-color: rgb(200, 200, 200);
+}
+h2:hover {
+    cursor: default;
+}
+#submitBlogButton {
+    color: black;
+    border: 1px solid rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
+}
+#submitBlogButton:hover {
+    background-color: rgb(200, 200, 200);
+}
+#newBlogForm {
+    width: 100%;
+}
+#newBlogButton {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    padding: 10px 20px;
+    font-size: xx-large;
+}
+.abg /*AuthorizedBackGround*/ {
+    /* background-color: rgb(45, 204, 112); */
+    background-color: rgb(45, 195, 106);
+    border-color: rgb(45, 195, 106);
+}
+.ubg /*UnauthorizedBackGround*/ {
+    background-color: rgb(30, 30, 30);
+    border-color: rgb(30, 30, 30);
+}
+.centerContent {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+input {
+    box-sizing: border-box;
+    width: 100%;
+}
+header {
+    padding: 0;
+}
+section {
+    margin-top: 2%;
+    margin-right: 5%;
+    margin-left: 5%;
+    background-color: rgb(240, 240, 240);
+    border-radius: 10px;
+    height: 75vh;
+    overflow: scroll;
+}
+aside {
+    background-color: white;
+}
+aside:hover {
+    background-color: rgb(200, 200, 200);
+    border: 1px solid black;
+    cursor: pointer;
+}
+form {
+    position: relative;
+    background-color: white;
+}
+header {
+    height: min-content;
+}
+.flotantWindowCloseButton {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 0;
+    margin: 0;
+    margin-right: 2%;
+    border: 0;
+    background: transparent;
+    color: black;
+    font-size: 24px;
+}
+.likeSVG {
+    width: 50%;
+}
+.likeSVG:hover {
+    cursor: pointer;
+}
+.likeButton {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 3%;
+    background-color: rgb(100, 100, 100);
+    border: 0;
+}
+.likeButton:hover {
+    background-color: rgb(255, 0, 0);
+}
+.BlogInfo {
+    max-width: 250px;
+    background-color: rgba(255, 255, 255);
+    width: 50vw;
+    height: 36vh;
+    padding: 1.5em;
+    position: relative;
+    border-radius: 10px;
+}
+.bottomDivBlogInfo {
+    margin: 5%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 13em;
+    height: 50px;
+}
+.BlogInfoDelete {
+    margin: 0.5em;
+}
+.auth {
+    color: rgb(255, 0, 0);
+}
+.auth:hover {
+    cursor: pointer;
+    color: rgb(100, 0, 0);
+}
+.unauth {
+    color: rgb(100, 100, 100);
+}
+.unauth:hover {
+    cursor: no-drop;
+    color: rgb(100, 100, 100);
+}
