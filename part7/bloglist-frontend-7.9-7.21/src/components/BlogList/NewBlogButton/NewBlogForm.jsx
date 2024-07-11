@@ -6,10 +6,26 @@ import ez from '../../../utils/ez';
 
 import { toast } from 'react-toastify';
 import config from '../../../utils/config';
+import { useQueryClient } from '@tanstack/react-query';
 
-const NewBlogForm = ({ setViewForm, setBL }) => {
+const NewBlogForm = ({ setViewForm }) => {
     const [blogTitle, setBlogTitle] = useState('');
     const [blogUrl, setBlogUrl] = useState('');
+
+    //Dont use useMutation for react tostify
+    // const createBlog = useMutation({
+    //     mutationFn: blogService.create,
+    //     onSuccess: (newBlog) => {
+    //         queryClient.invalidateQueries(['blogs']);//Then i download all the blogs again
+    //         //Thats generate an error on the delete action
+    //         // const blogs = queryClient.getQueryData(['blogs']);
+    //         // queryClient.setQueryData(['blogs'], blogs.concat(data));
+    //         setViewForm(false);
+
+    //     }
+    // })
+
+    const queryClient = useQueryClient();
 
     const handleCreate = (e) => {
         e.preventDefault();
@@ -21,8 +37,12 @@ const NewBlogForm = ({ setViewForm, setBL }) => {
                     title: blogTitle,
                     url: blogUrl,
                 })
-                .then(() => {
-                    setBL();
+                .then((data) => {
+                    // console.log('data', data);
+                    queryClient.invalidateQueries(['blogs']); //Then i download all the blogs again
+                    //Thats generate an error on the delete action
+                    // const blogs = queryClient.getQueryData(['blogs']);
+                    // queryClient.setQueryData(['blogs'], blogs.concat(data));
                     setViewForm(false);
                 }),
             {
@@ -70,7 +90,6 @@ import PropTypes from 'prop-types';
 
 NewBlogForm.propTypes = {
     setViewForm: PropTypes.func.isRequired,
-    setBL: PropTypes.func.isRequired,
 };
 
 export default NewBlogForm;

@@ -7,16 +7,16 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'mvp.css';
 import './style.css';
 
-import { useState } from 'react';
+import { UserContextProvider } from './context/user';
 
 const App = () => {
-    const [isLogged, setIsLogged] = useState(!!localStorage.getItem('user'));
-
     return (
         <div>
             <ToastContainer />
-            <Navbar isLogged={isLogged} setIsLogged={setIsLogged} />
-            <BlogList />
+            <UserContextProvider>
+                <Navbar />
+                <BlogList />
+            </UserContextProvider>
         </div>
     );
 };

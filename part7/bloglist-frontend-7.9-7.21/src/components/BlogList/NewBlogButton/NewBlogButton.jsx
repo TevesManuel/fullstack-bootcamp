@@ -1,17 +1,22 @@
 import { useState } from 'react';
 import NewBlogForm from './NewBlogForm';
 import FlotantWindow from '../../utils/FlotantWindow';
+import { useUserValue } from '../../../context/user';
 
-const NewBlogButton = ({ setBL }) => {
+const NewBlogButton = () => {
     const [viewForm, setViewForm] = useState(false);
+    const user = useUserValue();
     const handleClick = () => {
-        setViewForm(true);
+        if(user)
+        {
+            setViewForm(true);
+        }
     };
     return (
         <div>
             {viewForm ?
                 <FlotantWindow setViewFn={setViewForm}>
-                    <NewBlogForm setViewForm={setViewForm} setBL={setBL} />
+                    <NewBlogForm setViewForm={setViewForm} />
                 </FlotantWindow>
             :   null}
             <button
@@ -27,7 +32,5 @@ const NewBlogButton = ({ setBL }) => {
 
 import PropTypes from 'prop-types';
 
-NewBlogButton.propTypes = {
-    setBL: PropTypes.func.isRequired,
-};
+NewBlogButton.propTypes = {};
 export default NewBlogButton;

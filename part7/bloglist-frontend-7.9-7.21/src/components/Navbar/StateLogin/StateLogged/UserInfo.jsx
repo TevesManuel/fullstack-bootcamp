@@ -2,7 +2,12 @@ import config from '../../../../utils/config';
 
 import { toast } from 'react-toastify';
 
-const UserInfo = ({ setIsLogged, setViewUserInfo }) => {
+import { useUserValue, useUserDispatch } from '../../../../context/user';
+
+const UserInfo = ({ setViewUserInfo }) => {
+    const user = useUserValue();
+    const userDispatch = useUserDispatch();
+
     return (
         <div
             style={{
@@ -14,20 +19,16 @@ const UserInfo = ({ setIsLogged, setViewUserInfo }) => {
                 gap: '10px',
             }}
         >
-            <p>Name: {JSON.parse(window.localStorage.getItem('user')).name}</p>
-            <p>
-                Username:{' '}
-                {JSON.parse(window.localStorage.getItem('user')).username}
-            </p>
+            <p>Name: {user.name}</p>
+            <p>Username: {user.username}</p>
             <button
                 style={{ backgroundColor: 'red', border: 'red' }}
                 onClick={() => {
                     toast.info(
-                        `See you later ${JSON.parse(window.localStorage.getItem('user')).name}`,
+                        `See you later ${user.name}`,
                         config.NOTIFICATION_CONFIG,
                     );
-                    window.localStorage.removeItem('user');
-                    setIsLogged(false);
+                    userDispatch({type: 'LOGOUT'});
                     setViewUserInfo(false);
                 }}
             >
@@ -40,7 +41,6 @@ const UserInfo = ({ setIsLogged, setViewUserInfo }) => {
 import PropTypes from 'prop-types';
 
 UserInfo.propTypes = {
-    setIsLogged: PropTypes.func.isRequired,
     setViewUserInfo: PropTypes.func.isRequired,
 };
 

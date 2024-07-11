@@ -56,10 +56,12 @@ h2:hover {
     /* background-color: rgb(45, 204, 112); */
     background-color: rgb(45, 195, 106);
     border-color: rgb(45, 195, 106);
+    cursor: default;
 }
 .ubg /*UnauthorizedBackGround*/ {
     background-color: rgb(30, 30, 30);
     border-color: rgb(30, 30, 30);
+    cursor: not-allowed;
 }
 .centerContent {
     position: relative;

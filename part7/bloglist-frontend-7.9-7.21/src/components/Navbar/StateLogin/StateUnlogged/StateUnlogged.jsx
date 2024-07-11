@@ -1,14 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import LoginForm from './LoginForm';
 import FlotantWindow from '../../../utils/FlotantWindow';
 
-const StateUnlogged = ({ setIsLogged }) => {
+const StateUnlogged = () => {
     const [viewLogin, setViewLogin] = useState(false);
-
-    useEffect(() => {
-        setIsLogged(!!localStorage.getItem('user'));
-    }, [setIsLogged, viewLogin]);
 
     return (
         <div>
@@ -27,12 +23,6 @@ const StateUnlogged = ({ setIsLogged }) => {
             :   null}
         </div>
     );
-};
-
-import PropTypes from 'prop-types';
-
-StateUnlogged.propTypes = {
-    setIsLogged: PropTypes.func.isRequired,
 };
 
 export default StateUnlogged;

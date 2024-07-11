@@ -15,9 +15,9 @@ const create = (blog) => {
         .then((response) => response.data);
 };
 
-const update = (blog, blodId) => {
+const update = (request) => {
     return axios
-        .put(baseUrl.concat('/').concat(blodId), blog, {
+        .put(baseUrl.concat('/').concat(request.id), request.data, {
             headers: {
                 Authorization: `Bearer ${JSON.parse(localStorage.getItem('user')).token}`,
             },

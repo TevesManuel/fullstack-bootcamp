@@ -2,12 +2,11 @@ import { useState } from 'react';
 import FlotantWindow from './../utils/FlotantWindow';
 import BlogInfo from './BlogInfo/BlogInfo';
 
-const Blog = ({ blog, updateBL }) => {
+const Blog = ({ blog }) => {
     const [view, setView] = useState(false);
 
     const middlewareSetView = (newState) => {
         setView(newState);
-        updateBL();
     };
 
     const handleClick = () => {
@@ -41,7 +40,6 @@ import PropTypes from 'prop-types';
 
 Blog.propTypes = {
     blog: PropTypes.object.isRequired,
-    updateBL: PropTypes.func.isRequired,
 };
 
 export default Blog;

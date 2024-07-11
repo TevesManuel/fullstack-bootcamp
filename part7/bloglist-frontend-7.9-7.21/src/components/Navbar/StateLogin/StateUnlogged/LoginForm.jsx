@@ -7,18 +7,18 @@ import loginService from '../../../../services/login';
 
 import ez from '../../../../utils/ez';
 
+import { useUserDispatch } from '../../../../context/user';
+
 const LoginForm = ({ setViewLogin }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const userDispatch = useUserDispatch;
 
     const handleLogin = (e) => {
         e.preventDefault();
         toast.promise(
             loginService.login(username, password).then((response) => {
-                window.localStorage.setItem(
-                    'user',
-                    JSON.stringify(response.data),
-                );
+                userDispatch({type: 'LOGIN', payload: response.data});
                 setUsername('');
                 setPassword('');
                 setViewLogin(false);
@@ -47,6 +47,7 @@ const LoginForm = ({ setViewLogin }) => {
                     value={username}
                     name='Username'
                     onChange={ez.textInputFnGen(setUsername)}
+                    style={{width: '100%'}}
                 />
             </div>
             <div>

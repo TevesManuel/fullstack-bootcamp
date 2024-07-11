@@ -4,26 +4,30 @@ import Blog from './Blog';
 
 import blogService from './../../services/blogs';
 import NewBlogButton from './NewBlogButton/NewBlogButton';
+import { useQuery, useMutation } from '@tanstack/react-query';
 
 const BlogList = () => {
-    const [blogs, setBlogs] = useState([]);
+    const result = useQuery({
+        queryKey: ['blogs'],
+        queryFn: blogService.getAll,
+    });
 
-    useEffect(() => {
-        blogService
-            .getAll()
-            .then((blogs) =>
-                setBlogs(blogs.sort((a, b) => a.likes - b.likes).reverse()),
-            );
-    }, []);
+    if (result.isLoading) {
+        return (
+            <div>
+                <h1>Loading blogs...</h1>
+            </div>
+        );
+    }
+    if (result.isError) {
+        return (
+            <div>
+                <h1>Blog service not avaible due to problem in server.</h1>
+            </div>
+        );
+    }
 
-    // Función para actualizar BlogList
-    const updateBlogList = () => {
-        blogService
-            .getAll()
-            .then((blogs) =>
-                setBlogs(blogs.sort((a, b) => a.likes - b.likes).reverse()),
-            );
-    };
+    const blogs = result.data.sort((a, b) => a.likes - b.likes).reverse();
 
     return (
         <div>
@@ -32,10 +36,10 @@ const BlogList = () => {
                     <h2>Blogs</h2>
                 </header>
                 {blogs.map((blog) => (
-                    <Blog updateBL={updateBlogList} key={blog.id} blog={blog} />
+                    <Blog key={blog.id} blog={blog} />
                 ))}
             </section>
-            <NewBlogButton setBL={updateBlogList} />
+            <NewBlogButton />
         </div>
     );
 };

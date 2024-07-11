@@ -210,7 +210,152 @@ plugins: [react({
 ### React Query & React Redux
 - React Query is a server state library, responsible for managing asynchronous operations between the server and client
 - Redux, etc. are client state libraries that can be used to store asynchronous data, although less efficiently when compared to a tool like React Query
-### Personalized Hooks
+
+## React Query
+### First configure the main file
+``` Javascript
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+
+const queryClient = new QueryClient();
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+    <QueryClientProvider client={queryClient}>
+        <App />
+    </QueryClientProvider>,
+);
+```
+I add QueryClient and QueryClientProvider, initialize queryClient and enclose <App /> inside QueryClientProvider with client=queryClient initialized above 
+### Ok, later in the file you need a server status
+``` Javascript
+import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
+import anyService from './../../services/anyservice';
+
+const queryClient =  useQueryClient();
+const Component () => {
+    const updateAny = () => {
+        queryClient.invalidateQueries(['any']);
+    };//invalidate
+
+    const result = useQuery({
+        queryKey: ['any'],
+        queryFn: anyService.getAll
+    });//Only once unless invalidated
+
+    if(result.isLoading)
+    {
+        return (
+            <div>
+                <h1>Loading any...</h1>
+            </div>
+        );
+    }
+    if(result.isError)
+    {
+        return (
+            <div>
+                <h1>Any service not avaible due to problem in server.</h1>
+            </div>
+        );
+    }
+    return (
+      <div>
+        <ul>
+          {result.data.map((any) => (
+                    <li>{any}<li/>
+                ))}
+        </ul>
+      </div>
+    );
+}
+```
+The good thing about this is that you can call the query and modify it from anywhere in the code without passing anything as an argument, just importing useQueryClient
+### For example for update an item
+``` Javascript
+onSuccess: (newAnecdote) => {
+  const anecdotes = queryClient.getQueryData(['anecdotes']);
+  queryClient.setQueryData(['anecdotes'], anecdotes.map(anecdote => anecdote.id === newAnecdote.id ? newAnecdote : anecdote));
+}
+```
+### For example for create an item
+``` Javascript
+onSuccess: (newAnecdote) => {
+  const anecdotes = queryClient.getQueryData(['anecdotes']);
+  queryClient.setQueryData(['anecdotes'], anecdotes.concat(newAnecdote));
+}
+```
+## React Context
+### First create the ./context/any
+``` Javascript
+import { createContext, useReducer } from 'react';
+
+const anyReducer = (state, action) => {
+    switch (action.type) {
+        case 'ANY_NAME_FOR_THE_ACTION':
+            return any_value;//any value is the new state, because is a reducer function
+        default:
+            return state;
+    }
+};
+
+const AnyContext = createContext();
+
+export const AnyContextProvider = (props) => {
+    const [any, anyDispatch] = useReducer(anyReducer, null);
+
+    return (
+        <AnyContext.Provider value={[any, anyDispatch]}>
+            {props.children}
+        </AnyContext.Provider>
+    );
+};
+
+import { useContext } from 'react';
+
+export const useAnyValue = () => {
+    const anyAndDispatch = useContext(AnyContext);
+    return anyAndDispatch[0];
+};
+export const useAnyDispatch = () => {
+    const anyAndDispatch = useContext(AnyContext);
+    return anyAndDispatch[1];
+};
+
+export default AnyContext;
+```
+### Later configure the main file
+``` Javascript
+import { AnyContextProvider } from './context/any';
+
+const App = () => {
+    return (
+        <div>
+            <ToastContainer />
+            <AnyContextProvider>
+                <Navbar />
+                <BlogList />
+            </AnyContextProvider>
+        </div>
+    );
+};
+
+export default App;
+``` 
+### For use the value
+``` Javascript
+import { useAnyValue } from '../../../../context/user';
+const any = useAnyValue();
+console.log(any);
+``` 
+``` Javascript
+import { useAnyDispatch } from '../../../../context/user';
+const dispatch = useAnyDispatch();
+dispatch({type: 'ANY_NAME_FOR_THE_ACTION', payload: {any: 'any'}});
+```
+This updates itself
+
+## Personalized Hooks
 ``` Javascript
 const useField = (type) => {
   const [value, setValue] = useState('')

@@ -5,17 +5,33 @@ import { toast } from 'react-toastify';
 import config from './../../../utils/config';
 
 import ConfirmWindow from './../../utils/ConfirmWindow';
+import { useQueryClient, useMutation } from '@tanstack/react-query';
 
 const BlogInfo = ({ blog, setViewFn }) => {
-    const [likes, setLike] = useState(blog.likes);
     const [confirmView, setConfirmView] = useState(false);
 
+    const queryClient = useQueryClient();
+
+    const updateBlogMutation = useMutation({
+        mutationFn: blogService.update,
+        onSuccess: () => {
+            const blogs = queryClient.getQueryData(['blogs']);
+            queryClient.setQueryData(
+                ['blogs'],
+                blogs.map((iterBlog) =>
+                    iterBlog.id === blog.id ?
+                        { ...blog, likes: blog.likes + 1 }
+                    :   iterBlog,
+                ),
+            );
+        },
+    });
+
     const likeCallback = () => {
-        // console.log(blog);
-        blog.likes += 1;
-        blogService
-            .update({ likes: blog.likes }, blog.id)
-            .then(() => setLike(blog.likes));
+        updateBlogMutation.mutate({
+            data: { likes: blog.likes + 1 },
+            id: blog.id,
+        });
     };
 
     const deleteCallback = () => {
@@ -26,6 +42,12 @@ const BlogInfo = ({ blog, setViewFn }) => {
             setViewFn(false);
             toast.promise(
                 blogService.remove(blog.id).then((data) => {
+                    //Dont use useMutation for react toastify
+                    const blogs = queryClient.getQueryData(['blogs']);
+                    queryClient.setQueryData(
+                        ['blogs'],
+                        blogs.filter((iterBlog) => iterBlog.id !== blog.id),
+                    );
                     if (data === 204) setViewFn(false);
                     return data;
                 }),
@@ -89,7 +111,7 @@ const BlogInfo = ({ blog, setViewFn }) => {
                     DELETE
                 </a>
                 <h2 style={{ textAlign: '-webkit-center', display: 'inline' }}>
-                    {likes}
+                    {blog.likes}
                 </h2>
                 <button onClick={likeCallback} className='likeButton'>
                     ♥
