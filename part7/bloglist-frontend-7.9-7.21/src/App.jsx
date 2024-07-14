@@ -9,15 +9,23 @@ import './style.css';
 
 import { UserContextProvider } from './context/user';
 
+import UserList from './components/UserList/UserList';
+
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+
 const App = () => {
     return (
-        <div>
+        <Router>
             <ToastContainer />
             <UserContextProvider>
                 <Navbar />
-                <BlogList />
+                <Routes>
+                    <Route path="/blogs" element={<BlogList />} />
+                    <Route path="/users" element={<UserList />} />
+                    <Route path="/" element={<BlogList />} />
+                </Routes>
             </UserContextProvider>
-        </div>
+        </Router>
     );
 };
 

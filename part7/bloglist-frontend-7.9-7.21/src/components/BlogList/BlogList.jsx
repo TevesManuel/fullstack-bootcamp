@@ -1,10 +1,8 @@
-import { useState, useEffect } from 'react';
-
 import Blog from './Blog';
 
 import blogService from './../../services/blogs';
 import NewBlogButton from './NewBlogButton/NewBlogButton';
-import { useQuery, useMutation } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
 const BlogList = () => {
     const result = useQuery({
