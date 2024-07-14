@@ -22,6 +22,8 @@ const App = () => {
                 <Routes>
                     <Route path="/blogs" element={<BlogList />} />
                     <Route path="/users" element={<UserList />} />
+                    <Route path="/user/:id" element={<UserList />} />
+                    <Route path="/blog/:id" element={<UserList />} />
                     <Route path="/" element={<BlogList />} />
                 </Routes>
             </UserContextProvider>
