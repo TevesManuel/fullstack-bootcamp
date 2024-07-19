@@ -1,0 +1,44 @@
+{
+  "name": "bloglist-4.1-4.23",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=production node ./src/index.js",
+    "start:test": "cross-env NODE_ENV=test node ./src/index.js",
+    "dev": "cross-env NODE_ENV=development nodemon ./src/index.js",
+    "lint": "eslint .",
+    "lint-fix": "eslint . --fix",
+    "test": "cross-env NODE_ENV=test jest --verbose"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TevesManuel/fullstack-bootcamp.git"
+  },
+  "author": "Manuel Teves",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TevesManuel/fullstack-bootcamp/issues"
+  },
+  "homepage": "https://github.com/TevesManuel/fullstack-bootcamp#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "express-async-errors": "^3.1.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.3.0"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.4.5",
+    "eslint": "^8.57.0",
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.0",
+    "supertest": "^6.3.4"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  }
+}
