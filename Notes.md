@@ -140,6 +140,8 @@ module.exports = mongoose.model('Blog', blogSchema); //Generate the model
 ```
 ### Models / Controller
 Exampe https://github.com/TevesManuel/fullstack-bootcamp/blob/main/part4/BlogList-4.1-4.23/src/controllers/Blog.js
+#### Populate method
+The populate('blogs') function tells Mongoose to search the collection of related blogs and replace the blogs in the field.
 
 ## Routers on expressJS
 ### How configurate?

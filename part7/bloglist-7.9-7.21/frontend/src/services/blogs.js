@@ -37,4 +37,18 @@ const remove = (blogId) => {
         });
 };
 
-export default { getAll, create, update, remove };
+const comment = (blogId, comment) => {
+    return axios
+        .post(
+            baseUrl.concat('/').concat(blogId).concat('/').concat('comments'),
+            { id: blogId, text: comment },
+            {
+                headers: {
+                    Authorization: `Bearer ${JSON.parse(localStorage.getItem('user')).token}`,
+                },
+            },
+        )
+        .then((response) => response.data);
+};
+
+export default { getAll, create, update, remove, comment };

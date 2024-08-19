@@ -9,6 +9,8 @@ import { useQueryClient, useMutation } from '@tanstack/react-query';
 
 const BlogInfo = ({ blog, setViewFn }) => {
     const [confirmView, setConfirmView] = useState(false);
+    const [commentsView, setCommentsView] = useState(false);
+    const [commentInput, setCommentInput] = useState('');
 
     const queryClient = useQueryClient();
 
@@ -100,6 +102,9 @@ const BlogInfo = ({ blog, setViewFn }) => {
                 {formatStr(blog.url, 30)}
             </a>
             <div className='bottomDivBlogInfo'>
+                <button onClick={() => setCommentsView(!commentsView)}>
+                    comments
+                </button>
                 <a
                     className={
                         checkUser() ?
@@ -117,6 +122,55 @@ const BlogInfo = ({ blog, setViewFn }) => {
                     ♥
                 </button>
             </div>
+            {commentsView ?
+                <FlotantWindow setViewFn={setCommentsView}>
+                    <div className='commentWindow'>
+                        <header>{`comments of \"${blog.title}\"`}</header>
+                        <main>
+                            {blog.comments.map((comment, i) =>
+                                comment.text ?
+                                    <li key={`${blog.id}/${i}`}>
+                                        {comment.text}
+                                    </li>
+                                :   null,
+                            )}
+                        </main>
+                        <footer>
+                            <input
+                                type='text'
+                                value={commentInput}
+                                onChange={(e) => {
+                                    e.preventDefault();
+                                    setCommentInput(e.target.value);
+                                }}
+                            />
+                            <button
+                                onClick={() => {
+                                    toast.promise(
+                                        blogService
+                                            .comment(blog.id, commentInput)
+                                            .then(() => {
+                                                setCommentInput('');
+                                                queryClient.invalidateQueries([
+                                                    'blogs',
+                                                ]); //Then i download all the blogs again
+                                            }),
+                                        {
+                                            pending: 'Uploading comment',
+                                            success:
+                                                'Comment has been uploaded',
+                                            error: 'Error to upload comment.',
+                                        },
+                                        config.NOTIFICATION_CONFIG,
+                                    );
+                                }}
+                            >
+                                Submit
+                            </button>
+                        </footer>
+                    </div>
+                </FlotantWindow>
+            :   null}
             <ConfirmWindow
                 callback={deleteCallback}
                 view={confirmView}
@@ -129,6 +183,7 @@ const BlogInfo = ({ blog, setViewFn }) => {
 };
 
 import PropTypes from 'prop-types';
+import FlotantWindow from '../../utils/FlotantWindow';
 
 BlogInfo.propTypes = {
     blog: PropTypes.object.isRequired,

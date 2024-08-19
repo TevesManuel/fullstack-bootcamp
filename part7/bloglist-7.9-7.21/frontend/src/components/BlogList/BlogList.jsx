@@ -4,15 +4,14 @@ import blogService from './../../services/blogs';
 import NewBlogButton from './NewBlogButton/NewBlogButton';
 import { useQuery } from '@tanstack/react-query';
 
-const BlogList = ({blogsArgv}) => {
+const BlogList = ({ blogsArgv, title }) => {
     let blogs;
-    if(!blogsArgv)
-    {
+    if (!blogsArgv) {
         const result = useQuery({
             queryKey: ['blogs'],
             queryFn: blogService.getAll,
         });
-    
+
         if (result.isLoading) {
             return (
                 <div>
@@ -27,24 +26,24 @@ const BlogList = ({blogsArgv}) => {
                 </div>
             );
         }
-    
+
         blogs = result.data.sort((a, b) => a.likes - b.likes).reverse();
-    }
-    else
-    {
+    } else {
         blogs = blogsArgv;
     }
-            
+
     return (
         <div>
-            <section>
+            <div className='blogList'>
                 <header>
-                    <h2>Blogs</h2>
+                    <h2>{title ? title : 'Blogs'}</h2>
                 </header>
-                {blogs.map((blog) => (
-                    <Blog key={blog.id} blog={blog} />
-                ))}
-            </section>
+                <main>
+                    {blogs.map((blog) => (
+                        <Blog key={blog.id} blog={blog} />
+                    ))}
+                </main>
+            </div>
             <NewBlogButton />
         </div>
     );
