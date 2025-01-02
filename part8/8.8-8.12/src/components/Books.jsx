@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client';
 import { ALL_BOOKS } from '../queries';
 
 const Books = ({ show }) => {
-  const { data, loading } = useQuery(ALL_BOOKS);
+  const { data, loading } = useQuery(ALL_BOOKS, { pollInterval: 1000 });
 
   if (!show) {
     return null;
